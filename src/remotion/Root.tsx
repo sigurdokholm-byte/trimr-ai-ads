@@ -22,6 +22,13 @@ import {
   LowerThird,
   FeedSquare,
 } from "./graphics/GraphicPack";
+import {
+  HowItWorksImage,
+  ScoreExplainerImage,
+  FaceShapeGuideImage,
+  WhatYouGetImage,
+  BarberBriefImage,
+} from "./graphics/ImagePack";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ScoreRevealC = ScoreReveal as any;
@@ -148,6 +155,24 @@ export const RemotionRoot: React.FC = () => {
           tip: "Ask for 3–4 inches on top, tapered sides with a skin fade to blend cleanly.",
         }}
       />
+
+      {/* ── Image Pack — static PNG exports ──────────────────────────────── */}
+      {/* Render any of these as a PNG with: remotionb still <id> --frame=0 --output=out/<id>.png */}
+
+      {/* 1. How It Works — 1080×1920 portrait infographic */}
+      <Composition id="HowItWorksImage" component={HowItWorksImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
+
+      {/* 2. Score Explainer — 1080×1080 square, explains each criterion */}
+      <Composition id="ScoreExplainerImage" component={ScoreExplainerImage as any} durationInFrames={1} fps={30} width={1080} height={1080} />
+
+      {/* 3. Face Shape Guide — 1080×1920 portrait, all 6 shapes + ideal cuts */}
+      <Composition id="FaceShapeGuideImage" component={FaceShapeGuideImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
+
+      {/* 4. What You Get — 1080×1080 square, full feature grid */}
+      <Composition id="WhatYouGetImage" component={WhatYouGetImage as any} durationInFrames={1} fps={30} width={1080} height={1080} />
+
+      {/* 5. Barber Brief — 1080×1920 portrait, "show this to your barber" */}
+      <Composition id="BarberBriefImage" component={BarberBriefImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
 
       <Composition
         id={COMP_NAME}
