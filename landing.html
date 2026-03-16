@@ -70,6 +70,10 @@
       transition: opacity .2s;
     }
     .nav-cta:hover { opacity: 0.88; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; color: var(--grey); text-decoration: none; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
 
     /* ── HERO ── */
     .hero {
@@ -564,7 +568,11 @@
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-logo">TRIMR<span class="gold">AI</span></div>
-  <a href="#cta" class="nav-cta">Try Free →</a>
+  <div class="nav-links">
+    <a href="hairstyles/">Hairstyles</a>
+    <a href="for-barbers.html">For Barbers</a>
+    <a href="#cta" class="nav-cta">Try Free →</a>
+  </div>
 </nav>
 
 <!-- ── HERO ── -->
