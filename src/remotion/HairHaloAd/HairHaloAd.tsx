@@ -148,7 +148,7 @@ const Scene2: React.FC = () => (
 // Scene 3: AI analysis
 const Scene3: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  useVideoConfig();
 
   const barWidth1 = interpolate(frame, [5, 30], [0, 100], {
     extrapolateRight: "clamp",
@@ -219,7 +219,6 @@ const Scene3: React.FC = () => {
                     width: `${width}%`,
                     background: `linear-gradient(90deg, ${GOLD}, #f0c060)`,
                     borderRadius: 6,
-                    transition: "width 0.1s",
                   }}
                 />
               </div>
@@ -375,7 +374,6 @@ const Scene5: React.FC = () => {
 // Scene 6: CTA
 const Scene6: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
 
   const pulse = Math.sin(frame / 8) * 0.03 + 1;
 

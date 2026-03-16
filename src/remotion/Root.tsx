@@ -1,3 +1,4 @@
+import React from "react";
 import { Composition } from "remotion";
 import {
   COMP_NAME,
@@ -15,6 +16,10 @@ import { Ad2_WordCarousel } from "./ads/Ad2_WordCarousel";
 import { Ad3_Steps } from "./ads/Ad3_Steps";
 import { Ad4_SocialProof } from "./ads/Ad4_SocialProof";
 import { Ad5_Cinematic } from "./ads/Ad5_Cinematic";
+import { Logo_Wordmark, Logo_Mark, Logo_Badge, LogoImage_Horizontal, LogoImage_Square, LogoImage_Icon } from "./logos/Logos";
+import { Organic_AppFlow } from "./ads/Organic_AppFlow";
+import { Organic_BarberBrief } from "./ads/Organic_BarberBrief";
+import { Organic_CompatibilityBreakdown } from "./ads/Organic_CompatibilityBreakdown";
 import {
   ScoreReveal,
   HaircutCard,
@@ -29,6 +34,7 @@ import {
   WhatYouGetImage,
   BarberBriefImage,
 } from "./graphics/ImagePack";
+import { TryOnSlide } from "./graphics/TryOnSlide";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ScoreRevealC = ScoreReveal as any;
@@ -55,6 +61,28 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="Ad3Steps" component={Ad3_Steps} durationInFrames={310} fps={30} width={1080} height={1920} />
       <Composition id="Ad4SocialProof" component={Ad4_SocialProof} durationInFrames={270} fps={30} width={1080} height={1920} />
       <Composition id="Ad5Cinematic" component={Ad5_Cinematic} durationInFrames={360} fps={30} width={1080} height={1920} />
+
+      {/* ── Logos ─────────────────────────────────────────────────────────── */}
+      {/* 1. Wordmark — letter-by-letter wipe + gold underline (3s) */}
+      <Composition id="LogoWordmark" component={Logo_Wordmark} durationInFrames={90} fps={30} width={1080} height={1080} />
+      {/* 2. Mark — three slash lines draw in + wordmark (3.5s) */}
+      <Composition id="LogoMark" component={Logo_Mark} durationInFrames={105} fps={30} width={1080} height={1080} />
+      {/* 3. Badge — ring draws clockwise + badge center scales in (3.7s) */}
+      <Composition id="LogoBadge" component={Logo_Badge} durationInFrames={112} fps={30} width={1080} height={1080} />
+
+      {/* ── Logo Images — static PNG exports ──────────────────────────────── */}
+      {/* Render: remotion still <id> --frame=0 --output=out/<id>.png        */}
+      <Composition id="LogoImageHorizontal" component={LogoImage_Horizontal as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1920} height={1080} />
+      <Composition id="LogoImageSquare"     component={LogoImage_Square     as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1080} />
+      <Composition id="LogoImageIcon"       component={LogoImage_Icon       as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1080} />
+
+      {/* ── Organic Videos — app UI screen-recording style ─────────────────── */}
+      {/* 1. App Flow — face shape reveal + top 3 cuts (10s) */}
+      <Composition id="Organic1AppFlow" component={Organic_AppFlow} durationInFrames={300} fps={30} width={1080} height={1920} />
+      {/* 2. Barber Brief — typewriter script reveal (11s) */}
+      <Composition id="Organic2BarberBrief" component={Organic_BarberBrief} durationInFrames={330} fps={30} width={1080} height={1920} />
+      {/* 3. Compatibility Breakdown — 5 score bars animate in (10.7s) */}
+      <Composition id="Organic3CompatibilityBreakdown" component={Organic_CompatibilityBreakdown} durationInFrames={320} fps={30} width={1080} height={1920} />
 
       {/* ── Graphic Pack — content creator templates ──────────────────────── */}
       {/*
@@ -160,19 +188,22 @@ export const RemotionRoot: React.FC = () => {
       {/* Render any of these as a PNG with: remotionb still <id> --frame=0 --output=out/<id>.png */}
 
       {/* 1. How It Works — 1080×1920 portrait infographic */}
-      <Composition id="HowItWorksImage" component={HowItWorksImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
+      <Composition id="HowItWorksImage" component={HowItWorksImage as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1920} />
 
       {/* 2. Score Explainer — 1080×1080 square, explains each criterion */}
-      <Composition id="ScoreExplainerImage" component={ScoreExplainerImage as any} durationInFrames={1} fps={30} width={1080} height={1080} />
+      <Composition id="ScoreExplainerImage" component={ScoreExplainerImage as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1080} />
 
       {/* 3. Face Shape Guide — 1080×1920 portrait, all 6 shapes + ideal cuts */}
-      <Composition id="FaceShapeGuideImage" component={FaceShapeGuideImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
+      <Composition id="FaceShapeGuideImage" component={FaceShapeGuideImage as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1920} />
 
       {/* 4. What You Get — 1080×1080 square, full feature grid */}
-      <Composition id="WhatYouGetImage" component={WhatYouGetImage as any} durationInFrames={1} fps={30} width={1080} height={1080} />
+      <Composition id="WhatYouGetImage" component={WhatYouGetImage as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1080} />
 
       {/* 5. Barber Brief — 1080×1920 portrait, "show this to your barber" */}
-      <Composition id="BarberBriefImage" component={BarberBriefImage as any} durationInFrames={1} fps={30} width={1080} height={1920} />
+      <Composition id="BarberBriefImage" component={BarberBriefImage as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1920} />
+
+      {/* 6. Try-On Slide — 1080×1920 portrait, TikTok slideshow mid-slide */}
+      <Composition id="TryOnSlide" component={TryOnSlide as React.ComponentType<Record<string, never>>} durationInFrames={1} fps={30} width={1080} height={1920} />
 
       <Composition
         id={COMP_NAME}

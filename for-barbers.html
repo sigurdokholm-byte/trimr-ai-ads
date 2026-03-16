@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRIMR AI for Barbers — Give Clients a Better Brief</title>
+  <meta name="description" content="Partner with TRIMR AI to give your clients a personalised haircut brief before every appointment. Clients show up knowing exactly what they want — better appointments, fewer revisions, happier clients." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --card: #141414; --card2: #1a1a1a;
+      --gold: #C9A84C; --gold-lt: #E8C96A; --white: #ffffff;
+      --grey: #999999; --grey2: #555555; --border: #222222;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    .gold { color: var(--gold); }
+    .grey { color: var(--grey); }
+    .center { text-align: center; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px; background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .nav-logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: var(--white); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; color: var(--grey); text-decoration: none; font-weight: 600; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: linear-gradient(135deg, var(--gold), var(--gold-lt)); color: var(--black); font-weight: 800; font-size: 0.85rem; padding: 10px 24px; border-radius: 40px; text-decoration: none; transition: opacity .2s; }
+    .nav-cta:hover { opacity: 0.88; }
+
+    .hero {
+      min-height: 85vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 120px 24px 80px;
+      background: radial-gradient(ellipse at 50% 20%, #1a1508 0%, var(--black) 65%);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 40px; margin-bottom: 32px;
+    }
+    h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.0; letter-spacing: -2.5px; max-width: 900px; margin: 0 auto 24px; }
+    .hero-sub { font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--grey); max-width: 560px; line-height: 1.65; margin-bottom: 48px; }
+    .cta-group { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--gold-lt)); color: var(--black); font-size: 1.1rem; font-weight: 900; padding: 20px 52px; border-radius: 60px; text-decoration: none; letter-spacing: -0.5px; transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 40px rgba(201,168,76,0.25); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 50px rgba(201,168,76,0.35); }
+    .btn-secondary { display: inline-block; background: transparent; color: var(--white); font-size: 1.05rem; font-weight: 700; padding: 19px 44px; border-radius: 60px; text-decoration: none; border: 1px solid var(--border); transition: border-color .2s; }
+    .btn-secondary:hover { border-color: rgba(201,168,76,0.4); }
+    .cta-sub { font-size: 0.82rem; color: var(--grey2); margin-top: 20px; }
+
+    section { padding: clamp(64px, 10vw, 120px) 24px; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; max-width: 680px; margin: 0 auto 16px; }
+    .section-sub { font-size: 1rem; color: var(--grey); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    /* Problem section */
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; max-width: 900px; margin: 64px auto 0;
+    }
+    .problem-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px 24px;
+    }
+    .problem-quote {
+      font-size: 1.15rem; color: #ddd; line-height: 1.55; font-style: italic;
+      margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .problem-source { font-size: 0.8rem; color: var(--grey2); }
+
+    /* Benefits */
+    .benefits-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; max-width: 960px; margin: 64px auto 0;
+    }
+    .benefit-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px 28px;
+      transition: border-color .25s, transform .25s;
+    }
+    .benefit-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-3px); }
+    .benefit-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .benefit-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .benefit-desc { font-size: 0.88rem; color: var(--grey); line-height: 1.6; }
+
+    /* How it works for barbers */
+    .how-bg { background: radial-gradient(ellipse at 50% 50%, #13100a 0%, var(--black) 80%); }
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; max-width: 960px; margin: 64px auto 0;
+    }
+    .step-card { background: var(--card2); border: 1px solid var(--border); border-radius: 20px; padding: 32px 24px; }
+    .step-num { font-size: 2.5rem; font-weight: 900; color: rgba(201,168,76,0.18); letter-spacing: -2px; margin-bottom: 16px; }
+    .step-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .step-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .step-desc { font-size: 0.85rem; color: var(--grey); line-height: 1.6; }
+
+    /* Brief card preview */
+    .brief-preview {
+      max-width: 560px; margin: 64px auto 0;
+      background: var(--card); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 24px; padding: 36px 32px;
+    }
+    .brief-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .brief-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+    .brief-score { font-size: 2rem; font-weight: 900; color: var(--gold); letter-spacing: -1px; }
+    .brief-cut { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .brief-face { font-size: 0.85rem; color: var(--grey); margin-bottom: 24px; }
+    .brief-script-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .brief-script {
+      background: var(--card2); border-radius: 14px; padding: 20px;
+      font-size: 0.9rem; color: #ddd; line-height: 1.7; font-style: italic;
+    }
+    .brief-copy-btn {
+      display: block; width: 100%; text-align: center;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--black); font-weight: 800; font-size: 0.88rem; padding: 14px;
+      border-radius: 14px; border: none; cursor: pointer; margin-top: 20px;
+      transition: opacity .2s;
+    }
+    .brief-copy-btn:hover { opacity: 0.88; }
+
+    /* Testimonials */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 64px auto 0; }
+    .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; }
+    .testi-stars { color: var(--gold); margin-bottom: 16px; font-size: 0.9rem; letter-spacing: 2px; }
+    .testi-quote { font-size: 0.95rem; line-height: 1.65; color: #ddd; margin-bottom: 20px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #2a2a2a, #3a3a3a); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .testi-name { font-size: 0.88rem; font-weight: 700; }
+    .testi-handle { font-size: 0.78rem; color: var(--grey); }
+
+    /* FAQ */
+    .faq-list { max-width: 680px; margin: 64px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; background: none; border: none; color: var(--white); font-family: inherit; font-size: 0.95rem; font-weight: 700; text-align: left; cursor: pointer; gap: 16px; }
+    .faq-q .chevron { color: var(--gold); font-size: 1rem; transition: transform .25s; flex-shrink: 0; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; font-size: 0.88rem; color: var(--grey); line-height: 1.7; padding: 0 24px; }
+    .faq-item.open .faq-a { max-height: 220px; padding: 0 24px 22px; }
+    .faq-item.open .chevron { transform: rotate(180deg); }
+
+    /* CTA section */
+    .cta-section { text-align: center; background: radial-gradient(ellipse at 50% 100%, #1a1508 0%, var(--black) 70%); padding: clamp(80px, 12vw, 140px) 24px; }
+
+    /* Contact form */
+    .contact-form {
+      max-width: 520px; margin: 48px auto 0;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 36px 32px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; color: var(--grey); }
+    .form-input {
+      width: 100%; background: var(--card2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px; color: var(--white);
+      font-family: inherit; font-size: 0.95rem;
+      transition: border-color .2s; outline: none;
+    }
+    .form-input:focus { border-color: rgba(201,168,76,0.5); }
+    .form-input::placeholder { color: var(--grey2); }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--black); font-size: 1rem; font-weight: 900; padding: 16px;
+      border-radius: 14px; border: none; cursor: pointer; transition: opacity .2s;
+      font-family: inherit; letter-spacing: -0.3px;
+    }
+    .form-submit:hover { opacity: 0.88; }
+    .form-note { font-size: 0.78rem; color: var(--grey2); text-align: center; margin-top: 14px; }
+
+    footer {
+      padding: 40px 48px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.5px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8rem; color: var(--grey); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 0.78rem; color: var(--grey2); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .cta-group { flex-direction: column; align-items: center; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">TRIMR<span class="gold">AI</span></a>
+  <div class="nav-links">
+    <a href="/">For Clients</a>
+    <a href="hairstyles/">Hairstyle Guides</a>
+    <a href="#contact" class="nav-cta">Partner with Us →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-eyebrow">✂️ For Barbers & Barbershops</div>
+  <h1 class="reveal">
+    Clients who know <span class="gold">exactly</span><br>
+    what they want.
+  </h1>
+  <p class="hero-sub reveal">
+    TRIMR AI gives your clients a personalised haircut brief before they sit in your chair. No more "just tidy it up" or "you know, like that thing." Better consultations, better results, happier clients.
+  </p>
+  <div class="cta-group reveal">
+    <a href="#contact" class="btn-primary">Partner With Us →</a>
+    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+  </div>
+  <p class="cta-sub reveal">Free to partner · No integration required · Takes 5 minutes to set up</p>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section>
+  <div class="center reveal">
+    <p class="section-eyebrow">The consultation problem</p>
+    <h2 class="section-title">You've heard these before.</h2>
+    <p class="section-sub">Every barber has sat through a consultation where the client has no idea what they want. TRIMR AI fixes this before they walk in.</p>
+  </div>
+
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <p class="problem-quote">"Uh… shorter on the sides? But not too short. Like medium short."</p>
+      <p class="problem-source">Every first-time client, ever.</p>
+    </div>
+    <div class="problem-card reveal" style="transition-delay:.08s">
+      <p class="problem-quote">"Like… you know that thing? That cut. I can't remember what it's called."</p>
+      <p class="problem-source">Half your Saturday morning.</p>
+    </div>
+    <div class="problem-card reveal" style="transition-delay:.16s">
+      <p class="problem-quote">"Whatever you think looks good, I guess."</p>
+      <p class="problem-source">AKA: blame me if it's wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BENEFITS ── -->
+<section class="how-bg">
+  <div class="center reveal">
+    <p class="section-eyebrow">What you get</p>
+    <h2 class="section-title">Better consultations.<br><span class="gold">Better appointments.</span></h2>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">⚡</div>
+      <h3 class="benefit-title">Faster consultations</h3>
+      <p class="benefit-desc">Clients arrive with a written brief, a named style, and a compatibility score. Consultations that used to take 5 minutes take 30 seconds.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.08s">
+      <div class="benefit-icon">🎯</div>
+      <h3 class="benefit-title">Fewer revisions</h3>
+      <p class="benefit-desc">When a client has seen the recommended cut, read why it suits their face shape, and asked for it by name — they leave satisfied more often.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.16s">
+      <div class="benefit-icon">📱</div>
+      <h3 class="benefit-title">A link you can send</h3>
+      <p class="benefit-desc">Share the TRIMR AI link in your booking confirmation or WhatsApp. "Before your appointment, try this — shows up knowing what you want." Simple.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.24s">
+      <div class="benefit-icon">🌟</div>
+      <h3 class="benefit-title">Stand out from other barbers</h3>
+      <p class="benefit-desc">The barbers recommending TRIMR AI are already differentiating themselves. Clients talk. "My barber sends me this thing before appointments" is a retention tool.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.32s">
+      <div class="benefit-icon">🔄</div>
+      <h3 class="benefit-title">Better rebooking</h3>
+      <p class="benefit-desc">Clients who loved their cut and know exactly why it suited them rebook faster. TRIMR AI's recommendations include maintenance schedules and product tips that keep them coming back.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.4s">
+      <div class="benefit-icon">💰</div>
+      <h3 class="benefit-title">$0 cost to partner</h3>
+      <p class="benefit-desc">Partnership is free. No integration, no API, no code. You share a link. Your clients get a free analysis. It takes five minutes to set up and nothing to maintain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how-it-works">
+  <div class="center reveal">
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Three steps from your end</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">🔗</div>
+      <h3 class="step-title">Share your link</h3>
+      <p class="step-desc">Add trimr-ai.app to your booking confirmation message, WhatsApp template, or Instagram bio. "Try this before your appointment." Done.</p>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.1s">
+      <div class="step-num">02</div>
+      <div class="step-icon">📲</div>
+      <h3 class="step-title">Client does the analysis</h3>
+      <p class="step-desc">They upload a selfie, get their face shape identified, and receive 3 ranked haircut recommendations with a barber brief written for them. 30 seconds.</p>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.2s">
+      <div class="step-num">03</div>
+      <div class="step-icon">💬</div>
+      <h3 class="step-title">Client arrives with the brief</h3>
+      <p class="step-desc">They show you their phone: cut name, guard numbers, styling notes, compatibility score. You already know what to do before you've picked up the clippers.</p>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.3s">
+      <div class="step-num">04</div>
+      <div class="step-icon">✅</div>
+      <h3 class="step-title">Better result, happier client</h3>
+      <p class="step-desc">They leave with a cut matched to their face shape. They come back. They tell their mates. You get the credit for the recommendation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BARBER BRIEF PREVIEW ── -->
+<section class="how-bg">
+  <div class="center reveal">
+    <p class="section-eyebrow">What clients bring you</p>
+    <h2 class="section-title">The Barber Brief — ready to execute</h2>
+    <p class="section-sub">Every TRIMR AI analysis generates a ready-to-read brief. This is what your client shows you at the chair.</p>
+  </div>
+
+  <div class="brief-preview reveal">
+    <div class="brief-header">
+      <span class="brief-title">TRIMR AI · Barber Brief</span>
+      <span class="brief-score">92</span>
+    </div>
+    <h3 class="brief-cut">Textured Crop</h3>
+    <p class="brief-face">Face shape: Oval · Best Match #1 of 3</p>
+    <p class="brief-script-label">Script for your barber</p>
+    <p class="brief-script">
+      "Ask for a textured crop with a skin fade — start at a #1 on the sides and blend up naturally. Leave 3–4 inches on top and ask for scissor texture work through the crown. Finish with a matte clay for that clean, lived-in look."
+    </p>
+    <button class="brief-copy-btn" onclick="this.textContent='Copied!'">📋 Copy Script</button>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section>
+  <div class="center reveal">
+    <p class="section-eyebrow">From the chair</p>
+    <h2 class="section-title">What barbers are saying</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <p class="testi-stars">★★★★★</p>
+      <p class="testi-quote">"I started recommending this to clients before appointments and the difference is real. They come in knowing what they want, they leave happy. I've had two clients bring it back for their second appointment because it worked so well the first time."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">💈</div>
+        <div>
+          <p class="testi-name">Daniel M.</p>
+          <p class="testi-handle">Barber · East London</p>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:.1s">
+      <p class="testi-stars">★★★★★</p>
+      <p class="testi-quote">"The script is actually accurate. It gives them the right guard numbers, the right terminology. I don't have to translate 'shorter on the sides' into an actual cut — they've already done that work."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">✂️</div>
+        <div>
+          <p class="testi-name">Carlos R.</p>
+          <p class="testi-handle">Senior Stylist · Manchester</p>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:.2s">
+      <p class="testi-stars">★★★★★</p>
+      <p class="testi-quote">"I put the link in my booking confirmation message. I'd say 30% of clients actually use it. Those 30% are the easiest appointments I have. No guessing, no second-guessing, no 'is this what you wanted?'"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">🪒</div>
+        <div>
+          <p class="testi-name">Amir K.</p>
+          <p class="testi-handle">Barbershop Owner · Birmingham</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="how-bg">
+  <div class="center reveal">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 class="section-title">Barber partnership questions</h2>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is there actually anything to set up?
+        <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">No — partnership means you share a link. Copy the TRIMR AI URL, paste it into your booking confirmation or WhatsApp template, and you're done. There's no account to create, no code to install, nothing to maintain.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Will you ever charge for this?
+        <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">The free tier of TRIMR AI stays free for clients — one complete analysis with 3 recommendations and a barber script. Barber partnership at the basic level is always free. We may build a paid co-branded version in future, but that will always be optional.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I offer a co-branded version to my clients?
+        <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Yes — we're building this now. A co-branded version with your barbershop name and logo, pre-configured with your booking link and contact details. Get in touch and we'll add you to the early access list.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How accurate are the face shape results?
+        <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">94% classification accuracy across all six face shapes, trained on 500,000+ facial scans. Clients can also manually override if they disagree. The barber script is generated based on the confirmed face shape and selected cut — you can always adjust at the chair.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What if a client shows me a recommendation that doesn't suit them?
+        <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">You're the professional. TRIMR AI is a starting point for the consultation, not a replacement for your expertise. Use it to start the conversation — "here's what the AI suggested, here's what I'd adjust based on what I can see in person." Most barbers find it gives them more to work with, not less.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT / PARTNER CTA ── -->
+<section class="cta-section" id="contact">
+  <p class="section-eyebrow reveal">Get involved</p>
+  <h2 class="section-title reveal">Partner with TRIMR AI<br><span class="gold">It takes 5 minutes.</span></h2>
+  <p class="section-sub reveal" style="margin-top:16px">Tell us about your shop and we'll send you the partner link and setup guide. Co-branded versions available on request.</p>
+
+  <div class="contact-form reveal">
+    <div class="form-group">
+      <label class="form-label" for="name">Your name</label>
+      <input class="form-input" type="text" id="name" name="name" placeholder="e.g. James K." />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="shop">Barbershop name</label>
+      <input class="form-input" type="text" id="shop" name="shop" placeholder="e.g. Fade & Co." />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="instagram">Instagram handle (optional)</label>
+      <input class="form-input" type="text" id="instagram" name="instagram" placeholder="@yourshop" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">Email address</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="you@yourshop.com" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="message">Anything else? (optional)</label>
+      <textarea class="form-input" id="message" name="message" placeholder="Interested in co-branding, want to integrate into booking flow, etc."></textarea>
+    </div>
+    <button class="form-submit" onclick="handleSubmit(this)">Send Partnership Request →</button>
+    <p class="form-note">We reply within 24 hours. No spam, no sales calls.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">TRIMR<span class="gold">AI</span></div>
+  <div class="footer-links">
+    <a href="/">For Clients</a>
+    <a href="hairstyles/">Hairstyle Guides</a>
+    <a href="hairstyles/oval-face.html">Oval Face</a>
+    <a href="hairstyles/round-face.html">Round Face</a>
+    <a href="hairstyles/square-face.html">Square Face</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 TRIMR AI. All rights reserved.</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function handleSubmit(btn) {
+    const form = btn.closest('.contact-form');
+    const name = form.querySelector('#name').value.trim();
+    const shop = form.querySelector('#shop').value.trim();
+    const email = form.querySelector('#email').value.trim();
+
+    if (!name || !shop || !email) {
+      btn.textContent = 'Please fill in name, shop, and email';
+      btn.style.background = 'rgba(255,80,80,0.2)';
+      btn.style.color = '#ff6060';
+      setTimeout(() => {
+        btn.textContent = 'Send Partnership Request →';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2500);
+      return;
+    }
+
+    // Build mailto link as fallback (replace with actual form endpoint when available)
+    const subject = encodeURIComponent(`TRIMR AI Barber Partnership — ${shop}`);
+    const body = encodeURIComponent(`Name: ${name}\nShop: ${shop}\nEmail: ${email}\nInstagram: ${form.querySelector('#instagram').value.trim()}\n\nMessage:\n${form.querySelector('#message').value.trim()}`);
+    window.location.href = `mailto:hello@trimr-ai.app?subject=${subject}&body=${body}`;
+
+    btn.textContent = '✓ Opening your email client...';
+  }
+</script>
+</body>
+</html>

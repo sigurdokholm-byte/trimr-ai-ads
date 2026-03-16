@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Hairstyles by Face Shape — TRIMR AI Guide</title>
+  <meta name="description" content="Find the best hairstyles for your face shape. TRIMR AI covers all 6 face shapes — oval, square, round, diamond, heart, and oblong — with personalized AI recommendations." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --card: #141414; --card2: #1a1a1a;
+      --gold: #C9A84C; --gold-lt: #E8C96A; --white: #ffffff;
+      --grey: #999999; --grey2: #555555; --border: #222222;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    .gold { color: var(--gold); }
+    .grey { color: var(--grey); }
+    .center { text-align: center; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px;
+      background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .nav-logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: var(--white); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; color: var(--grey); text-decoration: none; font-weight: 600; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt)); color: var(--black);
+      font-weight: 800; font-size: 0.85rem; padding: 10px 24px; border-radius: 40px;
+      text-decoration: none; letter-spacing: 0.3px; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    .breadcrumb {
+      padding: 100px 48px 0;
+      font-size: 0.78rem; color: var(--grey2);
+    }
+    .breadcrumb a { color: var(--grey2); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb span { margin: 0 6px; }
+
+    .hero {
+      min-height: 60vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 80px 24px 80px;
+      background: radial-gradient(ellipse at 50% 20%, #1a1508 0%, var(--black) 65%);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 40px; margin-bottom: 32px;
+    }
+    .hero-headline {
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900;
+      line-height: 1.05; letter-spacing: -2px; max-width: 800px; margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--grey);
+      max-width: 520px; line-height: 1.6; margin-bottom: 48px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--black); font-size: 1.1rem; font-weight: 900;
+      padding: 18px 48px; border-radius: 60px; text-decoration: none;
+      letter-spacing: -0.5px; transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 40px rgba(201,168,76,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 50px rgba(201,168,76,0.35); }
+
+    section { padding: clamp(64px, 8vw, 100px) 24px; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -1.5px; max-width: 680px; margin: 0 auto 16px;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--grey); max-width: 520px;
+      margin: 0 auto; line-height: 1.7;
+    }
+
+    .shapes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; max-width: 1000px; margin: 64px auto 0;
+    }
+    .shape-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 36px 28px;
+      text-decoration: none; color: var(--white);
+      transition: border-color .25s, transform .25s;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .shape-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-4px); }
+    .shape-icon { font-size: 2.4rem; }
+    .shape-name { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.5px; }
+    .shape-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; width: fit-content;
+    }
+    .tag-easy { background: rgba(93,187,99,0.15); color: #5DBB63; }
+    .tag-medium { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .tag-all { background: rgba(255,255,255,0.08); color: var(--grey); }
+    .shape-desc { font-size: 0.88rem; color: var(--grey); line-height: 1.6; }
+    .shape-cuts { font-size: 0.8rem; color: var(--grey2); margin-top: auto; }
+    .shape-cuts strong { color: var(--gold); font-weight: 700; }
+
+    .how-bg { background: radial-gradient(ellipse at 50% 50%, #13100a 0%, var(--black) 80%); }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; max-width: 900px; margin: 64px auto 0;
+    }
+    .step-card {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px 24px;
+    }
+    .step-num { font-size: 2.5rem; font-weight: 900; color: rgba(201,168,76,0.18); letter-spacing: -2px; margin-bottom: 16px; }
+    .step-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .step-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .step-desc { font-size: 0.85rem; color: var(--grey); line-height: 1.6; }
+
+    .cta-section {
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 100%, #1a1508 0%, var(--black) 70%);
+      padding: clamp(80px, 10vw, 120px) 24px;
+    }
+    .cta-sub { font-size: 0.82rem; color: var(--grey2); margin-top: 20px; }
+
+    footer {
+      padding: 40px 48px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.5px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8rem; color: var(--grey); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 0.78rem; color: var(--grey2); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .breadcrumb { padding: 80px 20px 0; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-logo">TRIMR<span class="gold">AI</span></a>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="../for-barbers.html">For Barbers</a>
+    <a href="../" class="nav-cta">Try Free →</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../">Home</a>
+  <span>›</span>
+  <span>Hairstyles by Face Shape</span>
+</div>
+
+<section class="hero">
+  <div class="hero-eyebrow">✂️ AI Hairstyle Guide</div>
+  <h1 class="hero-headline reveal">Find the <span class="gold">perfect haircut</span> for your face shape</h1>
+  <p class="hero-sub reveal">Every face shape suits different styles. Browse our guide or let the AI figure out your shape in 30 seconds.</p>
+  <a href="../" class="btn-primary reveal">Get Your AI Analysis Free</a>
+</section>
+
+<section>
+  <div class="center reveal">
+    <p class="section-eyebrow">All 6 face shapes</p>
+    <h2 class="section-title">Pick your face shape to see the best cuts</h2>
+    <p class="section-sub">Not sure which shape you are? The AI tells you instantly — just upload a selfie.</p>
+  </div>
+
+  <div class="shapes-grid">
+    <a href="oval-face.html" class="shape-card reveal">
+      <div class="shape-icon">⬭</div>
+      <div class="shape-name">Oval Face</div>
+      <span class="shape-tag tag-easy">Most Versatile</span>
+      <p class="shape-desc">Balanced proportions with a gently curved jaw. Almost any style works — the gold-standard face shape.</p>
+      <p class="shape-cuts">Top cuts: <strong>Quiff · Textured Crop · Pompadour</strong></p>
+    </a>
+    <a href="square-face.html" class="shape-card reveal" style="transition-delay:.05s">
+      <div class="shape-icon">⬜</div>
+      <div class="shape-name">Square Face</div>
+      <span class="shape-tag tag-medium">Strong Features</span>
+      <p class="shape-desc">Equal width at forehead and jaw with a defined, angular jawline. Best cuts soften the angles.</p>
+      <p class="shape-cuts">Top cuts: <strong>Textured Fringe · Side Part · Quiff</strong></p>
+    </a>
+    <a href="round-face.html" class="shape-card reveal" style="transition-delay:.1s">
+      <div class="shape-icon">⭕</div>
+      <div class="shape-name">Round Face</div>
+      <span class="shape-tag tag-medium">Add Height</span>
+      <p class="shape-desc">Similar width and height with soft, curved features. The best cuts add height and reduce visual width.</p>
+      <p class="shape-cuts">Top cuts: <strong>Faux Hawk · Quiff · High Fade</strong></p>
+    </a>
+    <a href="diamond-face.html" class="shape-card reveal" style="transition-delay:.15s">
+      <div class="shape-icon">🔷</div>
+      <div class="shape-name">Diamond Face</div>
+      <span class="shape-tag tag-medium">Balance Width</span>
+      <p class="shape-desc">Wide cheekbones with a narrow forehead and jawline. Cuts with forehead volume balance the cheeks.</p>
+      <p class="shape-cuts">Top cuts: <strong>Side Part · Curtains · Fringe</strong></p>
+    </a>
+    <a href="heart-face.html" class="shape-card reveal" style="transition-delay:.2s">
+      <div class="shape-icon">♥</div>
+      <div class="shape-name">Heart Face</div>
+      <span class="shape-tag tag-medium">Soften the Top</span>
+      <p class="shape-desc">Wide forehead tapering to a narrower jaw. Cuts that add jaw width and reduce forehead emphasis.</p>
+      <p class="shape-cuts">Top cuts: <strong>Side Swept · Textured Fringe · Longer Styles</strong></p>
+    </a>
+    <a href="oblong-face.html" class="shape-card reveal" style="transition-delay:.25s">
+      <div class="shape-icon">⬛</div>
+      <div class="shape-name">Oblong Face</div>
+      <span class="shape-tag tag-all">Add Width</span>
+      <p class="shape-desc">Long and narrow with similar widths at forehead, cheeks, and jaw. Cuts add width and reduce length.</p>
+      <p class="shape-cuts">Top cuts: <strong>Waves · Textured Messy · Side Part</strong></p>
+    </a>
+  </div>
+</section>
+
+<section class="how-bg">
+  <div class="center reveal">
+    <p class="section-eyebrow">Skip the guessing</p>
+    <h2 class="section-title">Let the AI find your face shape for you</h2>
+    <p class="section-sub">Unsure which shape you are? Most guys are. Upload a selfie and get your answer in 30 seconds.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">🤳</div>
+      <h3 class="step-title">Upload a selfie</h3>
+      <p class="step-desc">Front-facing, decent lighting. No makeup, no filters needed.</p>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.1s">
+      <div class="step-num">02</div>
+      <div class="step-icon">🧠</div>
+      <h3 class="step-title">AI reads your face shape</h3>
+      <p class="step-desc">Maps jaw, cheekbones, and forehead proportions with 94% accuracy.</p>
+    </div>
+    <div class="step-card reveal" style="transition-delay:.2s">
+      <div class="step-num">03</div>
+      <div class="step-icon">✂️</div>
+      <h3 class="step-title">Get 3 ranked haircut recommendations</h3>
+      <p class="step-desc">Each with a score, barber script, and product suggestions. Free.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <p class="section-eyebrow reveal">Free to try</p>
+  <h2 class="section-title reveal">Not sure what face shape you have?<br><span class="gold">Let the AI decide.</span></h2>
+  <a href="../" class="btn-primary reveal" style="margin-top:40px">Analyse My Face Shape Free</a>
+  <p class="cta-sub reveal">No credit card · 30 seconds · 47,000+ analyses done</p>
+</section>
+
+<footer>
+  <div class="footer-logo">TRIMR<span class="gold">AI</span></div>
+  <div class="footer-links">
+    <a href="index.html">All Face Shapes</a>
+    <a href="oval-face.html">Oval</a>
+    <a href="square-face.html">Square</a>
+    <a href="round-face.html">Round</a>
+    <a href="diamond-face.html">Diamond</a>
+    <a href="heart-face.html">Heart</a>
+    <a href="oblong-face.html">Oblong</a>
+    <a href="../for-barbers.html">For Barbers</a>
+    <a href="#">Privacy</a>
+  </div>
+  <p class="footer-copy">© 2026 TRIMR AI. All rights reserved.</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

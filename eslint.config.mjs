@@ -21,15 +21,17 @@ export default [
       "next-env.d.ts",
       "next.config.js",
       "deploy.mjs",
+      "headshot-hair-halo/**",
     ],
   },
   // Base JS recommended
   js.configs.recommended,
   // TypeScript recommended (non type-checked for speed/simplicity)
   ...tseslint.configs.recommended,
-  // Next.js recommended rules applied to app code
+  // Next.js recommended rules applied to app code (exclude submodule)
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
+    ignores: ["headshot-hair-halo/**"],
     plugins: { "@next/next": nextPlugin },
     rules: {
       ...nextRecommendedRules,
@@ -38,6 +40,7 @@ export default [
   // Remotion rules applied only to remotion files
   {
     files: ["src/remotion/**"],
+    ignores: ["headshot-hair-halo/**"],
     ...remotion.flatPlugin,
     rules: {
       ...remotion.flatPlugin.rules,
@@ -46,6 +49,7 @@ export default [
   // Disable all Next.js rules within remotion files
   {
     files: ["src/remotion/**"],
+    ignores: ["headshot-hair-halo/**"],
     rules: {
       ...offNextRules,
     },

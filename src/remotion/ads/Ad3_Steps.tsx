@@ -8,7 +8,6 @@ import {
   spring,
   useCurrentFrame,
   useVideoConfig,
-  Sequence,
 } from "remotion";
 
 const GOLD = "#C9A84C";
@@ -48,7 +47,6 @@ const Step: React.FC<{
       background: active ? "#fff" : "transparent",
       border: active ? `2px solid ${GOLD}` : "2px solid transparent",
       boxShadow: active ? "0 8px 32px rgba(0,0,0,0.08)" : "none",
-      transition: "background 0.3s",
     }}>
       <div style={{
         width: 80,
@@ -142,7 +140,6 @@ export const Ad3_Steps: React.FC = () => {
             height: 12,
             borderRadius: "50%",
             background: dotProgress >= i + 0.5 ? GOLD : "#D0C9BB",
-            transition: "background 0.2s",
           }} />
         ))}
       </div>
