@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pizza Time</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(160deg, #fff8ef 0%, #ffe9cf 100%);
+      }
+
+      .card {
+        width: min(92vw, 520px);
+        padding: 24px;
+        border-radius: 16px;
+        background: #ffffffcc;
+        backdrop-filter: blur(2px);
+        box-shadow: 0 18px 44px rgba(64, 30, 6, 0.18);
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        color: #7a2d0d;
+      }
+
+      p {
+        margin: 0 0 18px;
+        color: #5f3b1f;
+      }
+
+      .pizza {
+        width: 240px;
+        height: 240px;
+        margin: 0 auto;
+        border-radius: 50%;
+        position: relative;
+        background: #f4bd52;
+        border: 14px solid #d08f3f;
+        box-shadow: inset 0 0 0 10px #f4ce74;
+      }
+
+      .pepperoni {
+        position: absolute;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #c53b2f;
+        border: 3px solid #a62821;
+      }
+
+      .olive {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 4px solid #2d3e25;
+      }
+
+      .basil {
+        position: absolute;
+        width: 18px;
+        height: 28px;
+        border-radius: 50%;
+        background: #3d8f39;
+        transform: rotate(24deg);
+      }
+
+      footer {
+        margin-top: 18px;
+        font-size: 13px;
+        color: #7f644f;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Pizza Time</h1>
+      <p>Fresh out of the oven.</p>
+
+      <div class="pizza" aria-label="Illustration of a pizza">
+        <div class="pepperoni" style="top: 24px; left: 72px"></div>
+        <div class="pepperoni" style="top: 52px; left: 138px"></div>
+        <div class="pepperoni" style="top: 98px; left: 42px"></div>
+        <div class="pepperoni" style="top: 118px; left: 118px"></div>
+        <div class="pepperoni" style="top: 164px; left: 76px"></div>
+        <div class="pepperoni" style="top: 160px; left: 156px"></div>
+
+        <div class="olive" style="top: 40px; left: 40px"></div>
+        <div class="olive" style="top: 78px; left: 96px"></div>
+        <div class="olive" style="top: 84px; left: 180px"></div>
+        <div class="olive" style="top: 146px; left: 42px"></div>
+        <div class="olive" style="top: 128px; left: 176px"></div>
+
+        <div class="basil" style="top: 36px; left: 114px"></div>
+        <div class="basil" style="top: 98px; left: 156px"></div>
+        <div class="basil" style="top: 166px; left: 120px"></div>
+      </div>
+
+      <footer>Handmade with HTML + CSS</footer>
+    </main>
+  </body>
+</html>
