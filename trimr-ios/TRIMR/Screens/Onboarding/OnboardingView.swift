@@ -16,75 +16,60 @@ struct OnboardingView: View {
             case .splash:
                 OBSplash(onNext: state.goNext)
 
-            case .intent:
-                OBGoal(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    value: $state.intent
-                )
+            // MARK: Act I — Introduction
+            case .problem:
+                OBProblem(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .solution:
+                OBSolution(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .name:
-                OBName(
+                OBName(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.name)
+
+            case .age:
+                OBAge(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.age)
+
+            case .satisfaction:
+                OBSatisfaction(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.satisfaction)
+
+            case .bombshell:
+                OBBombshell(
                     onNext: state.goNext,
-                    onBack: state.goBack,
                     progress: state.step.progress,
-                    value: $state.name
+                    firstImpressions: state.firstImpressionsLeft,
+                    firstStyleGoal: state.styleGoals.first?.rawValue
                 )
 
-            case .welcome:
-                OBWelcome(
-                    name: state.name,
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress
-                )
-
-            case .valueProp:
-                OBValueProp(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress
-                )
-
-            case .reviews:
-                OBReviews(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress
-                )
+            case .bridge:
+                OBBridge(name: state.name, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .hairTypeQuiz:
-                OBHairTypeQuiz(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    value: $state.hairType
-                )
+                OBHairTypeQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairType)
 
-            case .photoCapture:
-                OBPhotoCapture(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    capturedImage: $state.capturedImage
-                )
-
-            case .productCountQuiz:
-                OBProductCountQuiz(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    value: $state.productCount
-                )
+            case .reflection1:
+                OBReflection1(hairType: state.hairType, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .styleGoalQuiz:
-                OBStyleGoalQuiz(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    value: $state.styleGoals
-                )
+                OBStyleGoalQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.styleGoals)
+
+            case .productCountQuiz:
+                OBProductCountQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.productCount)
+
+            case .intent:
+                OBGoal(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.intent)
+
+            case .reflection2:
+                OBReflection2(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .reviews:
+                OBReviews(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .chart:
+                OBChart(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            // MARK: Act II — Climax
+            case .photoCapture:
+                OBPhotoCapture(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, capturedImage: $state.capturedImage)
 
             case .analyzing:
                 if let img = state.capturedImage {
@@ -94,7 +79,7 @@ struct OnboardingView: View {
                         OBAnalyzing(
                             onComplete: { resp in
                                 state.analysis = resp
-                                state.step = .blurredReveal
+                                state.step = .freeReveal
                             },
                             onError: { msg in analyzeError = msg },
                             image: img,
@@ -102,24 +87,56 @@ struct OnboardingView: View {
                         )
                     }
                 } else {
-                    // No photo — should never happen via the funnel; bounce back.
                     Color.clear.onAppear { state.step = .photoCapture }
                 }
 
-            case .blurredReveal:
-                if let analysis = state.analysis {
-                    OBBlurredReveal(
-                        name: state.name,
-                        analysis: analysis,
-                        onUnlock: { state.step = .paywall }
-                    )
-                } else {
-                    Color.clear.onAppear { state.step = .photoCapture }
-                }
+            case .freeReveal:
+                OBFreeReveal(
+                    name: state.name,
+                    analysis: state.analysis,
+                    userImage: state.capturedImage,
+                    onContinue: { state.step = .day1 }
+                )
+
+            case .day1:
+                OBDay1(
+                    name: state.name,
+                    onContinue: { state.step = .personalizing }
+                )
+
+            // MARK: Act III — Conclusion
+            case .personalizing:
+                OBPersonalizing(onComplete: { state.step = .summary })
+
+            case .summary:
+                OBSummary(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .commitment:
+                OBCommitment(
+                    onNext: state.goNext,
+                    onBack: state.goBack,
+                    progress: state.step.progress,
+                    value: $state.commitmentLevel
+                )
+
+            case .snapshot:
+                OBSnapshot(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .notifications:
+                OBNotifications(
+                    onNext: state.goNext,
+                    onBack: state.goBack,
+                    progress: state.step.progress,
+                    granted: $state.notificationsGranted
+                )
+
+            case .socialProof:
+                OBSocialProof(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .paywall:
                 OBPaywall(
-                    onClose: { state.step = .blurredReveal },
+                    name: state.name,
+                    onClose: { state.step = .freeReveal },
                     onPurchased: { pid in
                         state.purchasedPackProductId = pid.rawValue
                         state.step = .fullReveal
