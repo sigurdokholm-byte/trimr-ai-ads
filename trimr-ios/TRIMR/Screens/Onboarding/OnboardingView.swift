@@ -17,6 +17,9 @@ struct OnboardingView: View {
                 OBSplash(onNext: state.goNext)
 
             // MARK: Act I — Introduction
+            case .hello:
+                OBHello(onNext: state.goNext)
+
             case .problem:
                 OBProblem(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 

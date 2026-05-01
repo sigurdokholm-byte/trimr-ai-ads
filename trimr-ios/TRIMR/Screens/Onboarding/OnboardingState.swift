@@ -6,6 +6,7 @@ import UIKit
 enum OnboardingStep: Int, CaseIterable {
     case splash = 0
     // Act I — Introduction
+    case hello
     case problem
     case solution
     case name
@@ -38,10 +39,10 @@ enum OnboardingStep: Int, CaseIterable {
     case signIn
 
     /// 0..1 used by OBHeader progress bar.
-    /// Excluded (no header): splash, analyzing, personalizing, freeReveal, day1, paywall, fullReveal, signIn.
+    /// Excluded (no header): splash, hello, analyzing, personalizing, freeReveal, day1, paywall, fullReveal, signIn.
     var progress: Double {
         let excluded: Set<OnboardingStep> = [
-            .splash, .analyzing, .personalizing, .freeReveal, .day1,
+            .splash, .hello, .analyzing, .personalizing, .freeReveal, .day1,
             .paywall, .fullReveal, .signIn
         ]
         let visible = OnboardingStep.allCases.filter { !excluded.contains($0) }

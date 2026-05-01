@@ -58,7 +58,9 @@ struct OBReflection1: View {
         .background(Theme.bg.ignoresSafeArea())
         .task {
             try? await Task.sleep(nanoseconds: 4_000_000_000)
-            onNext()
+            if !Task.isCancelled {
+                onNext()
+            }
         }
     }
 }

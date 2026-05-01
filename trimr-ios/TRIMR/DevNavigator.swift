@@ -162,6 +162,7 @@ private struct OnboardingStepJumpList: View {
     private var steps: [(OnboardingStep, String)] {
         [
             (.splash,           "splash"),
+            (.hello,            "hello"),
             (.problem,          "problem"),
             (.solution,         "solution"),
             (.name,             "name"),
