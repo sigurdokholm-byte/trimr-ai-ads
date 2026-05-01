@@ -76,6 +76,12 @@ enum ProductCount: String, CaseIterable, Codable, Hashable {
     case none, one, twoOrThree, fourPlus
 }
 
+enum CommitmentLevel: String, CaseIterable, Codable, Hashable {
+    case new30Days        // "A new cut I love"
+    case confidence       // "Confidence in any room"
+    case curious          // "Just curious for now"
+}
+
 // MARK: - Onboarding state container
 
 @MainActor
@@ -91,6 +97,38 @@ final class OnboardingState: ObservableObject {
     @Published var analysis: AnalyzeResponse? = nil
     @Published var purchasedPackProductId: String? = nil
 
+    @Published var age: Int? = nil
+    @Published var satisfaction: Int? = nil
+    @Published var commitmentLevel: CommitmentLevel? = nil
+    @Published var notificationsGranted: Bool? = nil
+    @Published var reviewPromptShown: Bool = false
+
+    /// Bombshell math: rough number of remaining first-impression encounters
+    /// based on age, assuming ~5 new strangers/day until age 80, rounded to 10k.
+    var firstImpressionsLeft: Int {
+        guard let age = age else { return 0 }
+        let yearsLeft = max(80 - age, 1)
+        return ((yearsLeft * 365 * 5) / 10_000) * 10_000
+    }
+
     func goNext() { step = step.next() }
     func goBack() { step = step.previous() }
 }
+
+#if DEBUG
+import SwiftUI
+
+#Preview("firstImpressionsLeft sanity") {
+    let s = OnboardingState()
+    return VStack(alignment: .leading, spacing: 12) {
+        ForEach([18, 25, 40, 60, 79, 80], id: \.self) { age in
+            let _ = (s.age = age)
+            Text("age \(age) → \(s.firstImpressionsLeft.formatted())")
+                .font(.system(size: 14, design: .monospaced))
+        }
+    }
+    .padding()
+    .background(Color.black)
+    .foregroundStyle(Color.white)
+}
+#endif
