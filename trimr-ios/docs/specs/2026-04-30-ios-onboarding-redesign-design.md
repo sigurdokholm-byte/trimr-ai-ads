@@ -20,7 +20,7 @@ Restructure the existing 15-screen iOS onboarding into a 28-screen 3-act narrati
 | Question | Answer |
 |---|---|
 | Bombshell math | Identity / first-impressions framing using `age × 365 × 5` |
-| Climax & review prompt | Free-reveal one full cut + AI image, fire `SKStoreReviewController` on Day-1 celebration screen, paywall comes later |
+| Climax & review prompt | Locked-reveal (text-only top match + 3 blurred cards, NO free image generation), fire `SKStoreReviewController` on Day-1 celebration screen, paywall comes later. Reverted from "1 free AI image" to "0 free images" on 2026-04-30 — user requested matching the existing free-tier policy. |
 | Commitment screen phrasing | Outcome commitment ("In 30 days, where do you want to be?") with 3 options + tailored response screen |
 | Notifications ask | Yes — added near end, framed as "1 reminder before trial ends" |
 | Drop any tactics? | None — keep all Mau elements (loading transition, chart, both reflection screens) |
@@ -58,7 +58,7 @@ Legend: **[NEW]** = new file · **[REUSE]** = existing file verbatim · **[REUSE
 |---|---|---|---|
 | 17 | Photo capture | `OBPhotoCapture.swift` **[REUSE]** | 20 |
 | 18 | Analyzing (real backend) | `OBAnalyzing.swift` **[REUSE]** | 21 |
-| 19 | Free reveal — 1 full cut + AI image | `OBFreeReveal.swift` **[NEW]** (replaces blurredReveal) | 22 |
+| 19 | Locked reveal — top match name + 3 blurred cards (no AI image) | `OBLockedReveal.swift` **[NEW]** (replaces blurredReveal) | 22 |
 | 20 | Day-1 celebration + review prompt | `OBDay1.swift` **[NEW]** | 23-24 |
 
 ### Act III — Conclusion (commit, configure, pay)
@@ -229,14 +229,14 @@ All new screens follow the existing pattern: `OBHeader(progress:, onBack:)` on t
 - **Quote:** *"90% of TRIMR users find a cut they keep within 30 days."* `labelMono` source line: *"— TRIMR internal data, 2026"*.
 - **CTA:** `Next`.
 
-### `OBFreeReveal` (climax — replaces `OBBlurredReveal`)
+### `OBLockedReveal` (climax — replaces `OBBlurredReveal`)
 - **Eyebrow:** `labelMono` *"YOUR #1 MATCH"*.
-- **Hero:** AI-generated image of user with cut #1 (FAL pipeline, real call).
-- **Cut name:** `TFont.display(28)`, e.g. *"Textured Crop"*.
-- **Match badge:** *"96% match for your {detected face shape}"*.
-- **Below:** 2 locked cards (blurred thumbnails) — *"#2 + #3 unlock with Pro"*.
+- **Top match block** (text-only, no AI image):
+  - Cut name in `TFont.display(28)`, e.g. *"Textured Crop"*.
+  - Match badge: *"96% match for your {detected face shape}"*.
+- **3 locked thumbnail cards** (blurred shapes / lock icon, no AI generation): *"All 3 cuts unlock with Pro"*.
 - **CTA:** `Continue` → advances to `OBDay1`. Paywall comes later, not here.
-- **Cost note:** this is the only added FAL call vs current flow.
+- **Cost note:** zero added FAL calls. Free users never trigger image generation during onboarding (matches existing free-tier policy).
 
 ### `OBDay1`
 - Big checkmark in gold, scale-bounce on appear.
@@ -298,7 +298,7 @@ All new screens follow the existing pattern: `OBHeader(progress:, onBack:)` on t
 - **CTA:** `See my plan` → advances to `OBPaywall`.
 
 ### `OBPaywall` tweak
-- Add a top line above existing pricing: *"{name}, your 2 locked cuts are right here →"* with a hairline image of the 2 blurred thumbnails from `OBFreeReveal`. Otherwise identical.
+- Add a top line above existing pricing: *"{name}, your 3 matches are right here →"* with a hairline of 3 small lock placeholders. Otherwise identical.
 
 ---
 
@@ -317,10 +317,10 @@ The existing `switch state.step` pattern stays; expand to 28 cases.
 
 | Stage | Today | New |
 |---|---|---|
-| Full result before paywall? | No (blurred only) | Yes — 1 of 3 cuts fully revealed with AI image |
+| Full result before paywall? | No (blurred only) | No — 0 of 3 cuts revealed; all 3 locked |
 | Paywall position | Right after blurredReveal | After socialProof (~7 screens later) |
-| Paywall closes to | blurredReveal | freeReveal |
-| Paywall offer | Existing pack purchases | Same SKUs, framed as "unlock cuts #2 + #3 + unlimited try-ons" |
+| Paywall closes to | blurredReveal | lockedReveal |
+| Paywall offer | Existing pack purchases | Same SKUs, framed as "unlock all 3 matches + unlimited try-ons" |
 
 ### `StoreKitManager` — review prompt helper
 
@@ -400,12 +400,12 @@ No new keys required for this work. Camera/photos already declared. `NSUserTrack
 - Retire `OBValueProp.swift` (delete).
 - **Verify:** end-to-end run shows screens 1–16 with real copy + animations.
 
-**Phase 3 — Act II Climax (free reveal + Day 1).**
-- Build `OBFreeReveal`, wire FAL to generate one image with the top recommendation.
+**Phase 3 — Act II Climax (locked reveal + Day 1).**
+- Build `OBLockedReveal` (text-only top match + 3 locked cards, NO FAL image generation).
 - Build `OBDay1` with checkmark bounce + streak-style card; trigger `SKStoreReviewController` after 1.2s, one-shot via `state.reviewPromptShown`.
 - Add `requestReviewIfAvailable()` to `StoreKitManager`.
 - Retire `OBBlurredReveal.swift` (delete).
-- **Verify:** complete an analyze in TestFlight, confirm FAL generates, confirm review modal fires.
+- **Verify:** complete an analyze in TestFlight, confirm 3 locked cards render, confirm review modal fires on real device.
 
 **Phase 4 — Act III Conclusion (commit, configure, pay).**
 - Build `OBPersonalizing`, `OBSummary`, `OBCommitment`, `OBSnapshot`, `OBNotifications`, `OBSocialProof`.
@@ -447,9 +447,9 @@ No new keys required for this work. Camera/photos already declared. `NSUserTrack
 ### Risk register
 
 - **App Store review prompt fatigue.** Onboarding burns one of Apple's 3 yearly slots. Acceptable — Mau-style timing is the highest-value moment.
-- **Free FAL cost.** Every onboarding completion now consumes one image generation regardless of conversion. Mitigation: cache image keyed by user_id so re-runs reuse it; cap free generations per device per day at the SupabaseClient layer.
 - **Notification permission denial rate.** If rejected, you cannot re-prompt. Mitigation: copy explicitly limits scope to "1 reminder before trial ends — no surprises" to maximize allow rate.
 - **Length fatigue.** 28 vs 15 screens. Mitigation: every new screen has either auto-advance (loaders) or single-tap CTAs; total tap count rises ~16 → ~25, in line with Mau's ratios.
+- **No free taste of the result.** Free users never see an AI image during onboarding. Mitigation: the bombshell, commitment, summary, and snapshot screens carry the persuasion weight; the visual payoff is reserved for paying users — same as today's flow.
 
 ---
 

@@ -1880,16 +1880,18 @@ git commit -m "feat(ios-storekit): add requestReviewIfAvailable() helper"
 
 ---
 
-### Task 17: Build OBFreeReveal (replaces OBBlurredReveal as climax)
+### Task 17: Build OBFreeReveal (locked-state climax — NO free image generation)
+
+**Goal:** Free users see the analysis text (top cut name + face-shape match badge) plus 3 locked thumbnail cards. Zero FAL calls during onboarding. Matches the existing free-tier policy.
 
 **Files:**
 - Modify: `trimr-ios/TRIMR/Screens/Onboarding/OBFreeReveal.swift`
 
-- [ ] **Step 1: Inspect existing OBBlurredReveal for reference**
+- [ ] **Step 1: Verify the AnalyzeResponse shape**
 
-Read `trimr-ios/TRIMR/Screens/Onboarding/OBBlurredReveal.swift` to understand how it currently displays the analysis result. Use that as a reference for image rendering, cut name, and face-shape badge formatting.
+Read `trimr-ios/TRIMR/Networking/Models/DTO.swift` and confirm: (a) `AnalyzeResponse` has `faceShape: FaceShape?` (or similar) and (b) it carries a list of recommendations with at least a `name: String` per item. Also read the existing `trimr-ios/TRIMR/Screens/Onboarding/OBBlurredReveal.swift` for the exact property accessors you'll need (it uses the same DTO). Adjust the code below if the property names differ.
 
-- [ ] **Step 2: Replace OBFreeReveal stub with full implementation**
+- [ ] **Step 2: Replace OBFreeReveal stub with the locked-state implementation**
 
 ```swift
 import SwiftUI
@@ -1907,34 +1909,18 @@ struct OBFreeReveal: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(spacing: 18) {
+                VStack(spacing: 22) {
                     Text("YOUR #1 MATCH")
                         .labelMono()
-                        .padding(.top, 32)
-
-                    // Hero image
-                    ZStack {
-                        if let img = userImage {
-                            Image(uiImage: img)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 360)
-                                .clipped()
-                                .overlay(Theme.heroGradient)
-                        } else {
-                            Color(hex: 0x1C1812)
-                                .frame(height: 360)
-                        }
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 22))
-                    .padding(.horizontal, 20)
+                        .padding(.top, 36)
 
                     if let rec = topRecommendation {
-                        VStack(spacing: 6) {
+                        VStack(spacing: 10) {
                             Text(rec.name)
-                                .font(TFont.display(28))
-                                .tracking(-0.4)
+                                .font(TFont.display(34))
+                                .tracking(-0.5)
                                 .foregroundStyle(Theme.text)
+                                .multilineTextAlignment(.center)
                             if let face = analysis?.faceShape {
                                 Text("96% match for your \(face.rawValue) face")
                                     .font(TFont.body(13, weight: .medium))
@@ -1944,20 +1930,32 @@ struct OBFreeReveal: View {
                                     .clipShape(Capsule())
                             }
                         }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 32)
+                        .padding(.horizontal, 20)
+                        .background(Color(hex: 0x1C1812))
+                        .overlay(RoundedRectangle(cornerRadius: 22).stroke(Theme.gold.opacity(0.25)))
+                        .clipShape(RoundedRectangle(cornerRadius: 22))
+                        .padding(.horizontal, 20)
                     }
 
-                    // Locked cards
-                    VStack(spacing: 8) {
-                        Text("2 MORE CUTS LOCKED")
+                    VStack(spacing: 10) {
+                        Text("ALL 3 CUTS LOCKED")
                             .labelMono()
                             .padding(.top, 6)
                         HStack(spacing: 10) {
-                            ForEach(0..<2) { _ in
+                            ForEach(0..<3) { _ in
                                 lockedCard()
                             }
                         }
                     }
                     .padding(.horizontal, 24)
+
+                    Text("Unlock your matches with AI try-on next.")
+                        .font(TFont.body(13))
+                        .foregroundStyle(Theme.muted)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
                 }
                 .padding(.bottom, 24)
             }
@@ -1990,17 +1988,17 @@ struct OBFreeReveal: View {
 }
 ```
 
-**NOTE:** This task assumes `AnalyzeResponse` has `recommendations: [HaircutRecommendation]` and `faceShape: FaceShape?`, and `HaircutRecommendation` has `name: String`. Verify by reading `trimr-ios/TRIMR/Networking/Models/DTO.swift` — if the property names differ, adjust accordingly. The existing `OBBlurredReveal.swift` is a working reference for the actual shape.
+**NOTE:** No FAL/network calls in this view. The `userImage` parameter is intentionally unused here (kept for signature parity with `OnboardingView` wiring); deliberately left in the signature so removal can happen in a separate cleanup pass without breaking call sites.
 
 - [ ] **Step 3: Build & verify in simulator**
 
-Build, run end-to-end (splash → all answers → photo → analyzing → freeReveal). Confirm hero image renders + cut name + locked cards.
+Build, run end-to-end (splash → all answers → photo → analyzing → freeReveal). Confirm cut name + face-shape badge in the gold-bordered card, 3 locked thumbnails below, "Continue" CTA at bottom.
 
 - [ ] **Step 4: Commit**
 
 ```bash
 git add trimr-ios/TRIMR/Screens/Onboarding/OBFreeReveal.swift
-git commit -m "feat(ios-onboarding): build OBFreeReveal — full top match + 2 locked cards"
+git commit -m "feat(ios-onboarding): build OBFreeReveal — locked-state, zero free image gen"
 ```
 
 ---
@@ -2796,7 +2794,7 @@ git commit -m "feat(ios-onboarding): build OBSocialProof big-stat cards"
 
 ---
 
-### Task 27: Tweak OBPaywall — personalized hairline + locked-cuts message
+### Task 27: Tweak OBPaywall — personalized hairline + 3 locked matches message
 
 **Files:**
 - Modify: `trimr-ios/TRIMR/Screens/Onboarding/OBPaywall.swift`
@@ -2807,25 +2805,19 @@ In `OBPaywall.swift`, find the `VStack(spacing: 22)` block (~line 52) inside the
 
 ```swift
                     HStack(spacing: 10) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(hex: 0x1C1812))
-                                .frame(width: 44, height: 44)
-                            Image(systemName: "lock.fill")
-                                .font(.system(size: 16))
-                                .foregroundStyle(Theme.muted)
-                        }
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(hex: 0x1C1812))
-                                .frame(width: 44, height: 44)
-                            Image(systemName: "lock.fill")
-                                .font(.system(size: 16))
-                                .foregroundStyle(Theme.muted)
+                        ForEach(0..<3) { _ in
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: 0x1C1812))
+                                    .frame(width: 38, height: 38)
+                                Image(systemName: "lock.fill")
+                                    .font(.system(size: 14))
+                                    .foregroundStyle(Theme.muted)
+                            }
                         }
                         Text(name.isEmpty
-                             ? "Your 2 locked cuts are right here →"
-                             : "\(name), your 2 locked cuts are right here →")
+                             ? "Your 3 matches are right here →"
+                             : "\(name), your 3 matches are right here →")
                             .font(TFont.body(13, weight: .medium))
                             .foregroundStyle(Theme.text)
                             .multilineTextAlignment(.leading)
@@ -2840,13 +2832,13 @@ In `OBPaywall.swift`, find the `VStack(spacing: 22)` block (~line 52) inside the
 
 - [ ] **Step 2: Build & verify**
 
-Build, run end-to-end through paywall. Confirm new hairline at top with two lock placeholders + name personalization.
+Build, run end-to-end through paywall. Confirm new hairline at top with three lock placeholders + name personalization.
 
 - [ ] **Step 3: Commit**
 
 ```bash
 git add trimr-ios/TRIMR/Screens/Onboarding/OBPaywall.swift
-git commit -m "feat(ios-paywall): add personalized locked-cuts hairline above pricing"
+git commit -m "feat(ios-paywall): add personalized 3-locked-matches hairline above pricing"
 ```
 
 ---
@@ -3086,7 +3078,7 @@ The plan was checked against the spec:
 - **Spec coverage:** All 28 screens have a corresponding task. All 5 new state fields are added in Task 2. `CommitmentLevel` enum is added in Task 2. `firstImpressionsLeft` is added with a Preview sanity check in Task 2. `requestReviewIfAvailable` is in Task 16. `PushPermission` helper is in Task 20. Paywall tweak is in Task 27. Analytics + kill-switch are in Tasks 28-30.
 - **Placeholder scan:** No "TBD" / "implement later" / "similar to Task N" / "add appropriate error handling" found. Each step contains the actual code an engineer pastes in.
 - **Type consistency:** All call sites in `OnboardingView` (Task 5) use the same parameter names defined in each screen's stub (Task 4) and full implementation (Tasks 6-26). `OBPaywall(name:onClose:onPurchased:)` matches Task 5 wiring + Task 27 tweak. `OBFreeReveal(name:analysis:userImage:onContinue:)` matches Task 5 + Task 17.
-- **One known external dependency:** Task 17 (`OBFreeReveal`) assumes `AnalyzeResponse` shape from `DTO.swift`. Engineer should confirm shape matches `OBBlurredReveal` (which used the same data) before completing Task 17. Spec Task 17 Step 1 explicitly tells the engineer to verify.
+- **One known external dependency:** Task 17 (`OBFreeReveal`) reads `AnalyzeResponse.faceShape` and `recommendations[0].name` from `DTO.swift`. Engineer should confirm property names match `OBBlurredReveal` (which uses the same DTO) before completing Task 17. Plan Task 17 Step 1 explicitly tells the engineer to verify.
 
 ---
 
