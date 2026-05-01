@@ -160,6 +160,13 @@ struct OnboardingView: View {
             }
         }
         .animation(.easeInOut(duration: 0.22), value: state.step)
+        #if DEBUG
+        .onReceive(NotificationCenter.default.publisher(for: .devJumpOnboardingStep)) { note in
+            if let step = note.object as? OnboardingStep {
+                state.step = step
+            }
+        }
+        #endif
     }
 
     private func buildPreferences() -> [String: String] {
