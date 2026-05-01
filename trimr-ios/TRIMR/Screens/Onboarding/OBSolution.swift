@@ -10,7 +10,7 @@ struct OBSolution: View {
     private struct Step { let n: Int; let title: String; let emoji: String }
     private let steps: [Step] = [
         .init(n: 1, title: "scan your face shape",            emoji: "🔍"),
-        .init(n: 2, title: "rank 3 cuts that fit it",          emoji: "✂️"),
+        .init(n: 2, title: "find your top match",             emoji: "✂️"),
         .init(n: 3, title: "see yourself in each cut",         emoji: "🪞"),
     ]
 

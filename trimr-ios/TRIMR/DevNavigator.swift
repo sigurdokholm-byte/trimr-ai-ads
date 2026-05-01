@@ -177,7 +177,6 @@ private struct OnboardingStepJumpList: View {
             (.intent,           "intent"),
             (.reflection2,      "reflection2"),
             (.reviews,          "reviews"),
-            (.chart,            "chart"),
             (.photoCapture,     "photoCapture"),
             (.analyzing,        "analyzing"),
             (.freeReveal,       "freeReveal"),

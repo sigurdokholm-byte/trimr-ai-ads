@@ -21,7 +21,6 @@ enum OnboardingStep: Int, CaseIterable {
     case intent
     case reflection2
     case reviews
-    case chart
     // Act II — Climax
     case photoCapture
     case analyzing

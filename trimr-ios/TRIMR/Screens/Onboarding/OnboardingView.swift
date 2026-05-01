@@ -67,9 +67,6 @@ struct OnboardingView: View {
             case .reviews:
                 OBReviews(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
-            case .chart:
-                OBChart(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
-
             // MARK: Act II — Climax
             case .photoCapture:
                 OBPhotoCapture(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, capturedImage: $state.capturedImage)

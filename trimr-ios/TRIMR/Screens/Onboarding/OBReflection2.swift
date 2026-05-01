@@ -33,13 +33,20 @@ struct OBReflection2: View {
         if state.styleGoals.isEmpty {
             goalsText = "your best"
         } else {
-            goalsText = state.styleGoals.map(\.rawValue).sorted().joined(separator: " and ")
+            goalsText = state.styleGoals.map { goal -> String in
+                switch goal {
+                case .professional:   return "professional"
+                case .attractive:     return "attractive"
+                case .trendy:         return "trendy"
+                case .lowMaintenance: return "low-maintenance"
+                }
+            }.sorted().joined(separator: " and ")
         }
 
         return [
             Line(prefix: "you're ",        highlight: nameHighlight,  suffix: "."),
             Line(prefix: "your hair is ",  highlight: hairHighlight,  suffix: "."),
-            Line(prefix: "you want ",      highlight: goalsText,      suffix: "."),
+            Line(prefix: "you want a ",    highlight: goalsText,      suffix: " look."),
             Line(prefix: "and you're tired of ", highlight: "bad cuts", suffix: ".")
         ]
     }
