@@ -4,9 +4,9 @@ import UIKit
 // MARK: - Step enum (drives router + progress bar)
 
 enum OnboardingStep: Int, CaseIterable {
-    case splash = 0
+    case hello = 0
+    case splash
     // Act I — Introduction
-    case hello
     case problem
     case solution
     case name
@@ -39,10 +39,10 @@ enum OnboardingStep: Int, CaseIterable {
     case signIn
 
     /// 0..1 used by OBHeader progress bar.
-    /// Excluded (no header): splash, hello, analyzing, personalizing, freeReveal, day1, paywall, fullReveal, signIn.
+    /// Excluded (no header): hello, splash, analyzing, personalizing, freeReveal, day1, paywall, fullReveal, signIn.
     var progress: Double {
         let excluded: Set<OnboardingStep> = [
-            .splash, .hello, .analyzing, .personalizing, .freeReveal, .day1,
+            .hello, .splash, .analyzing, .personalizing, .freeReveal, .day1,
             .paywall, .fullReveal, .signIn
         ]
         let visible = OnboardingStep.allCases.filter { !excluded.contains($0) }
@@ -87,7 +87,7 @@ enum CommitmentLevel: String, CaseIterable, Codable, Hashable {
 
 @MainActor
 final class OnboardingState: ObservableObject {
-    @Published var step: OnboardingStep = .splash
+    @Published var step: OnboardingStep = .hello
     @Published var name: String = ""
     @Published var intent: Int? = nil                      // existing OBGoal selection
     @Published var faceShape: FaceShape? = nil             // nil = "Let Trimr detect it"
