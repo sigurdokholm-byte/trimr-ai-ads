@@ -1,5 +1,8 @@
 import SwiftUI
 
+/// Opens the narrative arc with a calm, conversational problem statement.
+/// Mau-style: lowercase, sentence-fragment lines, gold-highlighted key phrases
+/// woven inline. No silhouette cards — the typography carries the screen.
 struct OBProblem: View {
     let onNext: () -> Void
     let onBack: () -> Void
@@ -9,46 +12,62 @@ struct OBProblem: View {
         VStack(spacing: 0) {
             OBHeader(progress: progress, onBack: onBack)
 
-            VStack(spacing: 24) {
-                Text("Most men get the wrong haircut for their face.")
-                    .font(TFont.display(28))
-                    .tracking(-0.5)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(Theme.text)
-                    .padding(.top, 48)
+            VStack(alignment: .leading, spacing: 22) {
+                Spacer().frame(height: 28)
 
-                Text("Wrong cut → six weeks of regret in every mirror, every photo, every meeting.")
+                (
+                    Text("most men get the ")
+                        .foregroundStyle(Theme.text)
+                    + Text("wrong cut")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(28))
+                .tracking(-0.5)
+
+                (
+                    Text("for the ")
+                        .foregroundStyle(Theme.text)
+                    + Text("wrong face")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(28))
+                .tracking(-0.5)
+
+                (
+                    Text("and they ")
+                        .foregroundStyle(Theme.text)
+                    + Text("don't know it")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(28))
+                .tracking(-0.5)
+
+                Spacer().frame(height: 12)
+
+                Text("until 6 weeks of regret in every mirror, every photo, every meeting.")
                     .font(TFont.body(15))
-                    .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.muted)
                     .lineSpacing(3)
-                    .padding(.horizontal, 8)
-
-                HStack(spacing: 14) {
-                    ForEach(0..<3) { _ in
-                        RoundedRectangle(cornerRadius: 14)
-                            .fill(Color(hex: 0x1C1812))
-                            .overlay(
-                                Image(systemName: "person.fill")
-                                    .font(.system(size: 36))
-                                    .foregroundStyle(Theme.muted2)
-                            )
-                            .frame(height: 110)
-                            .opacity(0.55)
-                    }
-                }
-                .padding(.top, 12)
             }
-            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 28)
 
             Spacer()
 
             Button(action: onNext) {
-                Text("Continue")
+                Text("continue")
                     .font(TFont.body(16, weight: .semibold))
                     .foregroundStyle(Color(hex: 0x0A0804))
                     .frame(maxWidth: .infinity).padding(.vertical, 18)
-                    .background(Theme.gold).clipShape(Capsule())
+                    .background(Theme.goldGlow)
+                    .clipShape(Capsule())
+                    .shadow(color: Theme.gold.opacity(0.3), radius: 16, y: 6)
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 24)

@@ -1,5 +1,8 @@
 import SwiftUI
 
+/// Final reflection before the climax photo step. Mau-style: line-by-line
+/// fade-in, each line conversational, key facts highlighted gold inline,
+/// CTA appears once all lines have rendered.
 struct OBReflection2: View {
     @ObservedObject var state: OnboardingState
     let onNext: () -> Void
@@ -8,21 +11,36 @@ struct OBReflection2: View {
 
     @State private var visible: Int = 0
 
-    private var lines: [String] {
-        let nameLine = state.name.isEmpty ? "You're with us." : "You're \(state.name)\(state.age.map { ", \($0)" } ?? "")."
-        let hairLine = state.hairType.map { "Your hair is \($0.rawValue)." } ?? "We'll figure your hair out next."
+    private struct Line {
+        let prefix: String
+        let highlight: String
+        let suffix: String
+    }
+
+    private var lines: [Line] {
+        let nameHighlight: String
+        if !state.name.isEmpty, let age = state.age {
+            nameHighlight = "\(state.name), \(age)"
+        } else if !state.name.isEmpty {
+            nameHighlight = state.name
+        } else {
+            nameHighlight = "with us"
+        }
+
+        let hairHighlight = state.hairType?.rawValue ?? "still figuring it out"
+
         let goalsText: String
         if state.styleGoals.isEmpty {
-            goalsText = "You want to look your best."
+            goalsText = "your best"
         } else {
-            let goals = state.styleGoals.map(\.rawValue).sorted().joined(separator: " and ")
-            goalsText = "You want to look \(goals)."
+            goalsText = state.styleGoals.map(\.rawValue).sorted().joined(separator: " and ")
         }
+
         return [
-            nameLine,
-            hairLine,
-            goalsText,
-            "And you're tired of hoping the next cut works."
+            Line(prefix: "you're ",        highlight: nameHighlight,  suffix: "."),
+            Line(prefix: "your hair is ",  highlight: hairHighlight,  suffix: "."),
+            Line(prefix: "you want ",      highlight: goalsText,      suffix: "."),
+            Line(prefix: "and you're tired of ", highlight: "bad cuts", suffix: ".")
         ]
     }
 
@@ -30,16 +48,25 @@ struct OBReflection2: View {
         VStack(spacing: 0) {
             OBHeader(progress: progress, onBack: onBack)
 
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 18) {
                 Spacer().frame(height: 36)
+
                 ForEach(lines.indices, id: \.self) { i in
-                    Text(lines[i])
-                        .font(TFont.display(22))
-                        .tracking(-0.3)
-                        .foregroundStyle(Theme.text)
-                        .opacity(i < visible ? 1 : 0)
-                        .offset(y: i < visible ? 0 : 8)
-                        .animation(.easeOut(duration: 0.4), value: visible)
+                    let line = lines[i]
+                    (
+                        Text(line.prefix)
+                            .foregroundStyle(Theme.text)
+                        + Text(line.highlight)
+                            .foregroundStyle(Theme.gold)
+                            .fontWeight(.black)
+                        + Text(line.suffix)
+                            .foregroundStyle(Theme.text)
+                    )
+                    .font(TFont.display(24))
+                    .tracking(-0.4)
+                    .opacity(i < visible ? 1 : 0)
+                    .offset(y: i < visible ? 0 : 8)
+                    .animation(.easeOut(duration: 0.4), value: visible)
                 }
             }
             .padding(.horizontal, 28)
@@ -48,11 +75,13 @@ struct OBReflection2: View {
             Spacer()
 
             Button(action: onNext) {
-                Text("That's me")
+                Text("that's me")
                     .font(TFont.body(16, weight: .semibold))
                     .foregroundStyle(Color(hex: 0x0A0804))
                     .frame(maxWidth: .infinity).padding(.vertical, 18)
-                    .background(Theme.gold).clipShape(Capsule())
+                    .background(Theme.goldGlow)
+                    .clipShape(Capsule())
+                    .shadow(color: Theme.gold.opacity(0.3), radius: 16, y: 6)
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 24)
@@ -62,7 +91,9 @@ struct OBReflection2: View {
         .background(Theme.bg.ignoresSafeArea())
         .task {
             for i in 1...lines.count {
-                try? await Task.sleep(nanoseconds: 400_000_000)
+                if Task.isCancelled { return }
+                try? await Task.sleep(nanoseconds: 450_000_000)
+                if Task.isCancelled { return }
                 visible = i
             }
         }
