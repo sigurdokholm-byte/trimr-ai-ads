@@ -104,26 +104,27 @@ final class OnboardingState: ObservableObject {
     @Published var reviewPromptShown: Bool = false
 
     /// Bombshell math: rough number of remaining first-impression encounters
-    /// based on age, assuming ~5 new strangers/day until age 80, rounded to 10k.
-    var firstImpressionsLeft: Int {
+    /// based on age, assuming ~5 new strangers/day until age 80, rounded to
+    /// the nearest 1,000. For age >= 80, uses a 1-year residual floor.
+    static func firstImpressionsLeft(for age: Int?) -> Int {
         guard let age = age else { return 0 }
         let yearsLeft = max(80 - age, 1)
-        return ((yearsLeft * 365 * 5) / 10_000) * 10_000
+        let raw = yearsLeft * 365 * 5
+        return ((raw + 500) / 1_000) * 1_000
     }
+
+    var firstImpressionsLeft: Int { Self.firstImpressionsLeft(for: age) }
 
     func goNext() { step = step.next() }
     func goBack() { step = step.previous() }
 }
 
 #if DEBUG
-import SwiftUI
-
 #Preview("firstImpressionsLeft sanity") {
-    let s = OnboardingState()
+    let ages = [18, 25, 40, 60, 79, 80]
     return VStack(alignment: .leading, spacing: 12) {
-        ForEach([18, 25, 40, 60, 79, 80], id: \.self) { age in
-            let _ = (s.age = age)
-            Text("age \(age) → \(s.firstImpressionsLeft.formatted())")
+        ForEach(ages, id: \.self) { age in
+            Text("age \(age) → \(OnboardingState.firstImpressionsLeft(for: age).formatted())")
                 .font(.system(size: 14, design: .monospaced))
         }
     }
