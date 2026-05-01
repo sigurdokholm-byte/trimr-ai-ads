@@ -1,0 +1,641 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0000000000000000000002 /* BasedProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000001 /* BasedProducts.swift */; };
+		AA0000000000000000000004 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000003 /* Components.swift */; };
+		AA0000000000000000000006 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000005 /* Models.swift */; };
+		AA0000000000000000000008 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000007 /* AuthManager.swift */; };
+		AA000000000000000000000A /* FaceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000009 /* FaceValidator.swift */; };
+		AA000000000000000000000C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000000B /* ImagePicker.swift */; };
+		AA000000000000000000000E /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000000D /* DTO.swift */; };
+		AA0000000000000000000010 /* OAuthBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000000F /* OAuthBrowser.swift */; };
+		AA0000000000000000000012 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000011 /* ProfileStore.swift */; };
+		AA0000000000000000000014 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000013 /* StoreKitManager.swift */; };
+		AA0000000000000000000016 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000015 /* SupabaseClient.swift */; };
+		AA0000000000000000000018 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000017 /* RootView.swift */; };
+		AA000000000000000000001A /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000019 /* AnalyzeView.swift */; };
+		AA000000000000000000001C /* BeforeAfterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001B /* BeforeAfterSlider.swift */; };
+		AA000000000000000000001E /* HairColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001D /* HairColorView.swift */; };
+		AA0000000000000000000020 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001F /* HomeView.swift */; };
+		AA0000000000000000000022 /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000021 /* LanguageView.swift */; };
+		AA0000000000000000000024 /* LegalPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000023 /* LegalPagesView.swift */; };
+		AA0000000000000000000026 /* LibraryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000025 /* LibraryDetailView.swift */; };
+		AA0000000000000000000028 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000027 /* LibraryView.swift */; };
+		AA000000000000000000002A /* OBAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000029 /* OBAge.swift */; };
+		AA000000000000000000002C /* OBAnalyzing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000002B /* OBAnalyzing.swift */; };
+		AA000000000000000000002E /* OBBlurredReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000002D /* OBBlurredReveal.swift */; };
+		AA0000000000000000000030 /* OBBombshell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000002F /* OBBombshell.swift */; };
+		AA0000000000000000000032 /* OBBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000031 /* OBBridge.swift */; };
+		AA0000000000000000000034 /* OBChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000033 /* OBChart.swift */; };
+		AA0000000000000000000036 /* OBCommitment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000035 /* OBCommitment.swift */; };
+		AA0000000000000000000038 /* OBDay1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000037 /* OBDay1.swift */; };
+		AA000000000000000000003A /* OBEmailSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000039 /* OBEmailSignIn.swift */; };
+		AA000000000000000000003C /* OBFreeReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003B /* OBFreeReveal.swift */; };
+		AA000000000000000000003E /* OBFullReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003D /* OBFullReveal.swift */; };
+		AA0000000000000000000040 /* OBGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003F /* OBGoal.swift */; };
+		AA0000000000000000000042 /* OBHairTypeQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000041 /* OBHairTypeQuiz.swift */; };
+		AA0000000000000000000044 /* OBName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000043 /* OBName.swift */; };
+		AA0000000000000000000046 /* OBNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000045 /* OBNotifications.swift */; };
+		AA0000000000000000000048 /* OBPaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000047 /* OBPaywall.swift */; };
+		AA000000000000000000004A /* OBPersonalizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000049 /* OBPersonalizing.swift */; };
+		AA000000000000000000004C /* OBPhotoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000004B /* OBPhotoCapture.swift */; };
+		AA000000000000000000004E /* OBProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000004D /* OBProblem.swift */; };
+		AA0000000000000000000050 /* OBReflection1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000004F /* OBReflection1.swift */; };
+		AA0000000000000000000052 /* OBReflection2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000051 /* OBReflection2.swift */; };
+		AA0000000000000000000054 /* OBReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000053 /* OBReviews.swift */; };
+		AA0000000000000000000056 /* OBSatisfaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000055 /* OBSatisfaction.swift */; };
+		AA0000000000000000000058 /* OBSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000057 /* OBSignIn.swift */; };
+		AA000000000000000000005A /* OBSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000059 /* OBSnapshot.swift */; };
+		AA000000000000000000005C /* OBSocialProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000005B /* OBSocialProof.swift */; };
+		AA000000000000000000005E /* OBSolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000005D /* OBSolution.swift */; };
+		AA0000000000000000000060 /* OBSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000005F /* OBSplash.swift */; };
+		AA0000000000000000000062 /* OBStyleGoalQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000061 /* OBStyleGoalQuiz.swift */; };
+		AA0000000000000000000064 /* OBSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000063 /* OBSummary.swift */; };
+		AA0000000000000000000066 /* OBValueProp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000065 /* OBValueProp.swift */; };
+		AA0000000000000000000068 /* OBWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000067 /* OBWelcome.swift */; };
+		AA000000000000000000006A /* OnboardingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000069 /* OnboardingState.swift */; };
+		AA000000000000000000006C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000006B /* OnboardingView.swift */; };
+		AA000000000000000000006E /* PhotoGuidelinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000006D /* PhotoGuidelinesView.swift */; };
+		AA0000000000000000000070 /* PreviewUploadSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000006F /* PreviewUploadSheet.swift */; };
+		AA0000000000000000000072 /* PricingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000071 /* PricingView.swift */; };
+		AA0000000000000000000074 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000073 /* ProfileView.swift */; };
+		AA0000000000000000000076 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000075 /* ResultView.swift */; };
+		AA0000000000000000000078 /* TryOnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000077 /* TryOnView.swift */; };
+		AA000000000000000000007A /* TRIMRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000079 /* TRIMRApp.swift */; };
+		AA000000000000000000007C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000007B /* Theme.swift */; };
+		AA000000000000000000007E /* TryOnPhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000007D /* TryOnPhotoStore.swift */; };
+		AA0000000000000000000080 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000007F /* Assets.xcassets */; };
+		AA0000000000000000000082 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000081 /* Preview Assets.xcassets */; };
+		AA000000000000000000009A /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000099 /* Supabase */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA0000000000000000000001 /* BasedProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasedProducts.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000003 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000005 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000007 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthManager.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000009 /* FaceValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FaceValidator.swift"; sourceTree = "<group>"; };
+		AA000000000000000000000B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePicker.swift"; sourceTree = "<group>"; };
+		AA000000000000000000000D /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTO.swift"; sourceTree = "<group>"; };
+		AA000000000000000000000F /* OAuthBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthBrowser.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000011 /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileStore.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000013 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKitManager.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000015 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SupabaseClient.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000017 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000019 /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyzeView.swift"; sourceTree = "<group>"; };
+		AA000000000000000000001B /* BeforeAfterSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BeforeAfterSlider.swift"; sourceTree = "<group>"; };
+		AA000000000000000000001D /* HairColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HairColorView.swift"; sourceTree = "<group>"; };
+		AA000000000000000000001F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000021 /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LanguageView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000023 /* LegalPagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LegalPagesView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000025 /* LibraryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryDetailView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000027 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000029 /* OBAge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBAge.swift"; sourceTree = "<group>"; };
+		AA000000000000000000002B /* OBAnalyzing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBAnalyzing.swift"; sourceTree = "<group>"; };
+		AA000000000000000000002D /* OBBlurredReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBBlurredReveal.swift"; sourceTree = "<group>"; };
+		AA000000000000000000002F /* OBBombshell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBBombshell.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000031 /* OBBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBBridge.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000033 /* OBChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBChart.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000035 /* OBCommitment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBCommitment.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000037 /* OBDay1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBDay1.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000039 /* OBEmailSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBEmailSignIn.swift"; sourceTree = "<group>"; };
+		AA000000000000000000003B /* OBFreeReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBFreeReveal.swift"; sourceTree = "<group>"; };
+		AA000000000000000000003D /* OBFullReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBFullReveal.swift"; sourceTree = "<group>"; };
+		AA000000000000000000003F /* OBGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBGoal.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000041 /* OBHairTypeQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBHairTypeQuiz.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000043 /* OBName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBName.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000045 /* OBNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBNotifications.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000047 /* OBPaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBPaywall.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000049 /* OBPersonalizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBPersonalizing.swift"; sourceTree = "<group>"; };
+		AA000000000000000000004B /* OBPhotoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBPhotoCapture.swift"; sourceTree = "<group>"; };
+		AA000000000000000000004D /* OBProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBProblem.swift"; sourceTree = "<group>"; };
+		AA000000000000000000004F /* OBReflection1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBReflection1.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000051 /* OBReflection2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBReflection2.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000053 /* OBReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBReviews.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000055 /* OBSatisfaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSatisfaction.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000057 /* OBSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSignIn.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000059 /* OBSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSnapshot.swift"; sourceTree = "<group>"; };
+		AA000000000000000000005B /* OBSocialProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSocialProof.swift"; sourceTree = "<group>"; };
+		AA000000000000000000005D /* OBSolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSolution.swift"; sourceTree = "<group>"; };
+		AA000000000000000000005F /* OBSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSplash.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000061 /* OBStyleGoalQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBStyleGoalQuiz.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000063 /* OBSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBSummary.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000065 /* OBValueProp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBValueProp.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000067 /* OBWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OBWelcome.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000069 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingState.swift"; sourceTree = "<group>"; };
+		AA000000000000000000006B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView.swift"; sourceTree = "<group>"; };
+		AA000000000000000000006D /* PhotoGuidelinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoGuidelinesView.swift"; sourceTree = "<group>"; };
+		AA000000000000000000006F /* PreviewUploadSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewUploadSheet.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000071 /* PricingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PricingView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000073 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000075 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResultView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000077 /* TryOnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TryOnView.swift"; sourceTree = "<group>"; };
+		AA0000000000000000000079 /* TRIMRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TRIMRApp.swift"; sourceTree = "<group>"; };
+		AA000000000000000000007B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme.swift"; sourceTree = "<group>"; };
+		AA000000000000000000007D /* TryOnPhotoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TryOnPhotoStore.swift"; sourceTree = "<group>"; };
+		AA000000000000000000007F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA0000000000000000000081 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA0000000000000000000083 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA000000000000000000008B /* TRIMR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRIMR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA000000000000000000008F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000000000000000000009A /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0000000000000000000084 = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000086 /* TRIMR */,
+				AA0000000000000000000085 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000085 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA000000000000000000008B /* TRIMR.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000086 /* TRIMR */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000001 /* BasedProducts.swift */,
+				AA0000000000000000000003 /* Components.swift */,
+				AA0000000000000000000005 /* Models.swift */,
+				AA0000000000000000000017 /* RootView.swift */,
+				AA0000000000000000000079 /* TRIMRApp.swift */,
+				AA000000000000000000007B /* Theme.swift */,
+				AA000000000000000000007D /* TryOnPhotoStore.swift */,
+				AA0000000000000000000096 /* Networking */,
+				AA0000000000000000000087 /* Screens */,
+				AA000000000000000000007F /* Assets.xcassets */,
+				AA0000000000000000000089 /* Preview Content */,
+				AA0000000000000000000083 /* Info.plist */,
+			);
+			path = TRIMR;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000096 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000007 /* AuthManager.swift */,
+				AA0000000000000000000009 /* FaceValidator.swift */,
+				AA000000000000000000000B /* ImagePicker.swift */,
+				AA000000000000000000000F /* OAuthBrowser.swift */,
+				AA0000000000000000000011 /* ProfileStore.swift */,
+				AA0000000000000000000013 /* StoreKitManager.swift */,
+				AA0000000000000000000015 /* SupabaseClient.swift */,
+				AA0000000000000000000097 /* Models */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000097 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA000000000000000000000D /* DTO.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000087 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000019 /* AnalyzeView.swift */,
+				AA000000000000000000001B /* BeforeAfterSlider.swift */,
+				AA000000000000000000001D /* HairColorView.swift */,
+				AA000000000000000000001F /* HomeView.swift */,
+				AA0000000000000000000021 /* LanguageView.swift */,
+				AA0000000000000000000023 /* LegalPagesView.swift */,
+				AA0000000000000000000025 /* LibraryDetailView.swift */,
+				AA0000000000000000000027 /* LibraryView.swift */,
+				AA000000000000000000006D /* PhotoGuidelinesView.swift */,
+				AA000000000000000000006F /* PreviewUploadSheet.swift */,
+				AA0000000000000000000071 /* PricingView.swift */,
+				AA0000000000000000000073 /* ProfileView.swift */,
+				AA0000000000000000000075 /* ResultView.swift */,
+				AA0000000000000000000077 /* TryOnView.swift */,
+				AA0000000000000000000088 /* Onboarding */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000088 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000029 /* OBAge.swift */,
+				AA000000000000000000002B /* OBAnalyzing.swift */,
+				AA000000000000000000002D /* OBBlurredReveal.swift */,
+				AA000000000000000000002F /* OBBombshell.swift */,
+				AA0000000000000000000031 /* OBBridge.swift */,
+				AA0000000000000000000033 /* OBChart.swift */,
+				AA0000000000000000000035 /* OBCommitment.swift */,
+				AA0000000000000000000037 /* OBDay1.swift */,
+				AA0000000000000000000039 /* OBEmailSignIn.swift */,
+				AA000000000000000000003B /* OBFreeReveal.swift */,
+				AA000000000000000000003D /* OBFullReveal.swift */,
+				AA000000000000000000003F /* OBGoal.swift */,
+				AA0000000000000000000041 /* OBHairTypeQuiz.swift */,
+				AA0000000000000000000043 /* OBName.swift */,
+				AA0000000000000000000045 /* OBNotifications.swift */,
+				AA0000000000000000000047 /* OBPaywall.swift */,
+				AA0000000000000000000049 /* OBPersonalizing.swift */,
+				AA000000000000000000004B /* OBPhotoCapture.swift */,
+				AA000000000000000000004D /* OBProblem.swift */,
+				AA000000000000000000004F /* OBReflection1.swift */,
+				AA0000000000000000000051 /* OBReflection2.swift */,
+				AA0000000000000000000053 /* OBReviews.swift */,
+				AA0000000000000000000055 /* OBSatisfaction.swift */,
+				AA0000000000000000000057 /* OBSignIn.swift */,
+				AA0000000000000000000059 /* OBSnapshot.swift */,
+				AA000000000000000000005B /* OBSocialProof.swift */,
+				AA000000000000000000005D /* OBSolution.swift */,
+				AA000000000000000000005F /* OBSplash.swift */,
+				AA0000000000000000000061 /* OBStyleGoalQuiz.swift */,
+				AA0000000000000000000063 /* OBSummary.swift */,
+				AA0000000000000000000065 /* OBValueProp.swift */,
+				AA0000000000000000000067 /* OBWelcome.swift */,
+				AA0000000000000000000069 /* OnboardingState.swift */,
+				AA000000000000000000006B /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000089 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000081 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA000000000000000000008A /* TRIMR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000091;
+			buildPhases = (
+				AA000000000000000000008D /* Sources */,
+				AA000000000000000000008F /* Frameworks */,
+				AA000000000000000000008E /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = TRIMR;
+			packageProductDependencies = (
+				AA0000000000000000000099 /* Supabase */,
+			);
+			productName = TRIMR;
+			productReference = AA000000000000000000008B;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA000000000000000000008C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					AA000000000000000000008A = { CreatedOnToolsVersion = 16.0; };
+				};
+			};
+			buildConfigurationList = AA0000000000000000000090;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = ( en, Base, );
+			mainGroup = AA0000000000000000000084;
+			packageReferences = (
+				AA0000000000000000000098 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			productRefGroup = AA0000000000000000000085;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA000000000000000000008A /* TRIMR */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA000000000000000000008E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000000000000000000082 /* Preview Assets.xcassets in Resources */,
+				AA0000000000000000000080 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA000000000000000000008D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000000000000000000002 /* BasedProducts.swift in Sources */,
+				AA0000000000000000000004 /* Components.swift in Sources */,
+				AA0000000000000000000006 /* Models.swift in Sources */,
+				AA0000000000000000000008 /* AuthManager.swift in Sources */,
+				AA000000000000000000000A /* FaceValidator.swift in Sources */,
+				AA000000000000000000000C /* ImagePicker.swift in Sources */,
+				AA000000000000000000000E /* DTO.swift in Sources */,
+				AA0000000000000000000010 /* OAuthBrowser.swift in Sources */,
+				AA0000000000000000000012 /* ProfileStore.swift in Sources */,
+				AA0000000000000000000014 /* StoreKitManager.swift in Sources */,
+				AA0000000000000000000016 /* SupabaseClient.swift in Sources */,
+				AA0000000000000000000018 /* RootView.swift in Sources */,
+				AA000000000000000000001A /* AnalyzeView.swift in Sources */,
+				AA000000000000000000001C /* BeforeAfterSlider.swift in Sources */,
+				AA000000000000000000001E /* HairColorView.swift in Sources */,
+				AA0000000000000000000020 /* HomeView.swift in Sources */,
+				AA0000000000000000000022 /* LanguageView.swift in Sources */,
+				AA0000000000000000000024 /* LegalPagesView.swift in Sources */,
+				AA0000000000000000000026 /* LibraryDetailView.swift in Sources */,
+				AA0000000000000000000028 /* LibraryView.swift in Sources */,
+				AA000000000000000000002A /* OBAge.swift in Sources */,
+				AA000000000000000000002C /* OBAnalyzing.swift in Sources */,
+				AA000000000000000000002E /* OBBlurredReveal.swift in Sources */,
+				AA0000000000000000000030 /* OBBombshell.swift in Sources */,
+				AA0000000000000000000032 /* OBBridge.swift in Sources */,
+				AA0000000000000000000034 /* OBChart.swift in Sources */,
+				AA0000000000000000000036 /* OBCommitment.swift in Sources */,
+				AA0000000000000000000038 /* OBDay1.swift in Sources */,
+				AA000000000000000000003A /* OBEmailSignIn.swift in Sources */,
+				AA000000000000000000003C /* OBFreeReveal.swift in Sources */,
+				AA000000000000000000003E /* OBFullReveal.swift in Sources */,
+				AA0000000000000000000040 /* OBGoal.swift in Sources */,
+				AA0000000000000000000042 /* OBHairTypeQuiz.swift in Sources */,
+				AA0000000000000000000044 /* OBName.swift in Sources */,
+				AA0000000000000000000046 /* OBNotifications.swift in Sources */,
+				AA0000000000000000000048 /* OBPaywall.swift in Sources */,
+				AA000000000000000000004A /* OBPersonalizing.swift in Sources */,
+				AA000000000000000000004C /* OBPhotoCapture.swift in Sources */,
+				AA000000000000000000004E /* OBProblem.swift in Sources */,
+				AA0000000000000000000050 /* OBReflection1.swift in Sources */,
+				AA0000000000000000000052 /* OBReflection2.swift in Sources */,
+				AA0000000000000000000054 /* OBReviews.swift in Sources */,
+				AA0000000000000000000056 /* OBSatisfaction.swift in Sources */,
+				AA0000000000000000000058 /* OBSignIn.swift in Sources */,
+				AA000000000000000000005A /* OBSnapshot.swift in Sources */,
+				AA000000000000000000005C /* OBSocialProof.swift in Sources */,
+				AA000000000000000000005E /* OBSolution.swift in Sources */,
+				AA0000000000000000000060 /* OBSplash.swift in Sources */,
+				AA0000000000000000000062 /* OBStyleGoalQuiz.swift in Sources */,
+				AA0000000000000000000064 /* OBSummary.swift in Sources */,
+				AA0000000000000000000066 /* OBValueProp.swift in Sources */,
+				AA0000000000000000000068 /* OBWelcome.swift in Sources */,
+				AA000000000000000000006A /* OnboardingState.swift in Sources */,
+				AA000000000000000000006C /* OnboardingView.swift in Sources */,
+				AA000000000000000000006E /* PhotoGuidelinesView.swift in Sources */,
+				AA0000000000000000000070 /* PreviewUploadSheet.swift in Sources */,
+				AA0000000000000000000072 /* PricingView.swift in Sources */,
+				AA0000000000000000000074 /* ProfileView.swift in Sources */,
+				AA0000000000000000000076 /* ResultView.swift in Sources */,
+				AA0000000000000000000078 /* TryOnView.swift in Sources */,
+				AA000000000000000000007A /* TRIMRApp.swift in Sources */,
+				AA000000000000000000007C /* Theme.swift in Sources */,
+				AA000000000000000000007E /* TryOnPhotoStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA0000000000000000000092 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ( "DEBUG=1", "$(inherited)", );
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA0000000000000000000093 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AA0000000000000000000094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TRIMR/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TRIMR/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/Frameworks", );
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trimrai.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA0000000000000000000095 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TRIMR/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TRIMR/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = ( "$(inherited)", "@executable_path/Frameworks", );
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trimrai.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA0000000000000000000090 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000092 /* Debug */,
+				AA0000000000000000000093 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000000000000000000091 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000094 /* Debug */,
+				AA0000000000000000000095 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA0000000000000000000098 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.44.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA0000000000000000000099 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0000000000000000000098 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+	};
+	rootObject = AA000000000000000000008C /* Project object */;
+}
