@@ -58,7 +58,7 @@ Legend: **[NEW]** = new file · **[REUSE]** = existing file verbatim · **[REUSE
 |---|---|---|---|
 | 17 | Photo capture | `OBPhotoCapture.swift` **[REUSE]** | 20 |
 | 18 | Analyzing (real backend) | `OBAnalyzing.swift` **[REUSE]** | 21 |
-| 19 | Locked reveal — top match name + 3 blurred cards (no AI image) | `OBLockedReveal.swift` **[NEW]** (replaces blurredReveal) | 22 |
+| 19 | Free reveal — top match name + 3 blurred cards (no AI image) | `OBFreeReveal.swift` **[NEW]** (replaces blurredReveal) | 22 |
 | 20 | Day-1 celebration + review prompt | `OBDay1.swift` **[NEW]** | 23-24 |
 
 ### Act III — Conclusion (commit, configure, pay)
@@ -229,7 +229,7 @@ All new screens follow the existing pattern: `OBHeader(progress:, onBack:)` on t
 - **Quote:** *"90% of TRIMR users find a cut they keep within 30 days."* `labelMono` source line: *"— TRIMR internal data, 2026"*.
 - **CTA:** `Next`.
 
-### `OBLockedReveal` (climax — replaces `OBBlurredReveal`)
+### `OBFreeReveal` (climax — replaces `OBBlurredReveal`, locked-state)
 - **Eyebrow:** `labelMono` *"YOUR #1 MATCH"*.
 - **Top match block** (text-only, no AI image):
   - Cut name in `TFont.display(28)`, e.g. *"Textured Crop"*.
@@ -319,7 +319,7 @@ The existing `switch state.step` pattern stays; expand to 28 cases.
 |---|---|---|
 | Full result before paywall? | No (blurred only) | No — 0 of 3 cuts revealed; all 3 locked |
 | Paywall position | Right after blurredReveal | After socialProof (~7 screens later) |
-| Paywall closes to | blurredReveal | lockedReveal |
+| Paywall closes to | blurredReveal | freeReveal |
 | Paywall offer | Existing pack purchases | Same SKUs, framed as "unlock all 3 matches + unlimited try-ons" |
 
 ### `StoreKitManager` — review prompt helper
@@ -401,7 +401,7 @@ No new keys required for this work. Camera/photos already declared. `NSUserTrack
 - **Verify:** end-to-end run shows screens 1–16 with real copy + animations.
 
 **Phase 3 — Act II Climax (locked reveal + Day 1).**
-- Build `OBLockedReveal` (text-only top match + 3 locked cards, NO FAL image generation).
+- Build `OBFreeReveal` (text-only top match + 3 locked cards, NO FAL image generation).
 - Build `OBDay1` with checkmark bounce + streak-style card; trigger `SKStoreReviewController` after 1.2s, one-shot via `state.reviewPromptShown`.
 - Add `requestReviewIfAvailable()` to `StoreKitManager`.
 - Retire `OBBlurredReveal.swift` (delete).
