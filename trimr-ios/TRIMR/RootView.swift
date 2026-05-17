@@ -16,9 +16,6 @@ struct RootView: View {
                 MainShell()
                     .transition(.opacity)
             }
-            #if DEBUG
-            DevNavigator()
-            #endif
         }
         .animation(.easeInOut(duration: 0.25), value: app.onboardingComplete)
         .onChange(of: auth.isSignedIn) { _, signedIn in

@@ -3,7 +3,6 @@ import SwiftUI
 struct OnboardingView: View {
     @EnvironmentObject var app: AppState
     @StateObject private var state = OnboardingState()
-    @State private var analyzeError: String? = nil
 
     private func finish() {
         app.userName = state.name
@@ -14,7 +13,7 @@ struct OnboardingView: View {
         ZStack {
             switch state.step {
             case .splash:
-                OBSplash(onNext: state.goNext)
+                OBSplash(onNext: state.goNext, onLogin: { state.step = .signIn })
 
             // MARK: Act I — Introduction
             case .hello:
@@ -72,20 +71,8 @@ struct OnboardingView: View {
                 OBPhotoCapture(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, capturedImage: $state.capturedImage)
 
             case .analyzing:
-                if let img = state.capturedImage {
-                    if let err = analyzeError {
-                        analyzeFailed(message: err)
-                    } else {
-                        OBAnalyzing(
-                            onComplete: { resp in
-                                state.analysis = resp
-                                state.step = .freeReveal
-                            },
-                            onError: { msg in analyzeError = msg },
-                            image: img,
-                            preferences: buildPreferences()
-                        )
-                    }
+                if state.capturedImage != nil {
+                    OBAnalyzing(onComplete: { state.step = .freeReveal })
                 } else {
                     Color.clear.onAppear { state.step = .photoCapture }
                 }
@@ -95,33 +82,10 @@ struct OnboardingView: View {
                     name: state.name,
                     analysis: state.analysis,
                     userImage: state.capturedImage,
-                    onContinue: { state.step = .day1 }
-                )
-
-            case .day1:
-                OBDay1(
-                    name: state.name,
-                    onContinue: { state.step = .personalizing }
+                    onContinue: { state.step = .paywall }
                 )
 
             // MARK: Act III — Conclusion
-            case .personalizing:
-                OBPersonalizing(onComplete: { state.step = .summary })
-
-            case .summary:
-                OBSummary(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
-
-            case .commitment:
-                OBCommitment(
-                    onNext: state.goNext,
-                    onBack: state.goBack,
-                    progress: state.step.progress,
-                    value: $state.commitmentLevel
-                )
-
-            case .snapshot:
-                OBSnapshot(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
-
             case .notifications:
                 OBNotifications(
                     onNext: state.goNext,
@@ -130,25 +94,21 @@ struct OnboardingView: View {
                     granted: $state.notificationsGranted
                 )
 
-            case .socialProof:
-                OBSocialProof(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
-
             case .paywall:
                 OBPaywall(
                     name: state.name,
                     onClose: { state.step = .freeReveal },
-                    onPurchased: { pid in
-                        state.purchasedPackProductId = pid.rawValue
-                        state.step = .fullReveal
-                    }
+                    onPurchased: { state.step = .fullReveal }
                 )
 
             case .fullReveal:
-                if let analysis = state.analysis {
+                if let img = state.capturedImage {
                     OBFullReveal(
                         name: state.name,
-                        analysis: analysis,
-                        userImage: state.capturedImage,
+                        analysis: state.analysis,
+                        userImage: img,
+                        preferences: buildPreferences(),
+                        onAnalyzed: { resp in state.analysis = resp },
                         onContinue: { state.step = .signIn }
                     )
                 } else {
@@ -156,17 +116,10 @@ struct OnboardingView: View {
                 }
 
             case .signIn:
-                OBSignIn(onDone: finish, allowSkip: true)
+                OBSignIn(onDone: finish)
             }
         }
         .animation(.easeInOut(duration: 0.22), value: state.step)
-        #if DEBUG
-        .onReceive(NotificationCenter.default.publisher(for: .devJumpOnboardingStep)) { note in
-            if let step = note.object as? OnboardingStep {
-                state.step = step
-            }
-        }
-        #endif
     }
 
     private func buildPreferences() -> [String: String] {
@@ -180,36 +133,6 @@ struct OnboardingView: View {
         return prefs
     }
 
-    private func analyzeFailed(message: String) -> some View {
-        VStack(spacing: 18) {
-            Spacer()
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 36, weight: .bold))
-                .foregroundStyle(Theme.gold)
-            Text("Something went wrong")
-                .font(TFont.display(22))
-                .foregroundStyle(Theme.text)
-            Text(message)
-                .font(TFont.body(13))
-                .foregroundStyle(Theme.muted)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
-            Spacer()
-            Button {
-                analyzeError = nil
-            } label: {
-                Text("Try Again")
-                    .font(TFont.body(16, weight: .semibold))
-                    .foregroundStyle(Color(hex: 0x0A0804))
-                    .frame(maxWidth: .infinity).padding(.vertical, 18)
-                    .background(Theme.gold).clipShape(Capsule())
-            }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 32)
-        }
-        .background(Theme.bg.ignoresSafeArea())
-    }
 }
 
 struct OBProductCountQuiz: View {
