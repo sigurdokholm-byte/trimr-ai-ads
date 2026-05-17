@@ -21,27 +21,23 @@ enum OnboardingStep: Int, CaseIterable {
     case intent
     case reflection2
     case reviews
+    case finalReflection
+    case confidenceChart
     // Act II — Climax
     case photoCapture
     case analyzing
     case freeReveal
-    case day1
     // Act III — Conclusion
-    case personalizing
-    case summary
-    case commitment
-    case snapshot
-    case notifications
-    case socialProof
     case paywall
     case fullReveal
+    case notifications
     case signIn
 
     /// 0..1 used by OBHeader progress bar.
     /// Excluded (no header): hello, splash, analyzing, personalizing, freeReveal, day1, paywall, fullReveal, signIn.
     var progress: Double {
         let excluded: Set<OnboardingStep> = [
-            .hello, .splash, .analyzing, .personalizing, .freeReveal, .day1,
+            .hello, .splash, .analyzing, .freeReveal,
             .paywall, .fullReveal, .signIn
         ]
         let visible = OnboardingStep.allCases.filter { !excluded.contains($0) }
@@ -115,8 +111,8 @@ final class OnboardingState: ObservableObject {
 
     var firstImpressionsLeft: Int { Self.firstImpressionsLeft(for: age) }
 
-    func goNext() { step = step.next() }
-    func goBack() { step = step.previous() }
+    func goNext() { Haptics.light(); step = step.next() }
+    func goBack() { Haptics.selection(); step = step.previous() }
 }
 
 #if DEBUG

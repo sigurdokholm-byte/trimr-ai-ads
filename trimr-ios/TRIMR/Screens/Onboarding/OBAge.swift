@@ -14,7 +14,7 @@ struct OBAge: View {
             OBHeader(progress: progress, onBack: onBack)
 
             VStack(spacing: 28) {
-                Text("How old are you?")
+                Text("how old are you?")
                     .font(TFont.display(26))
                     .tracking(-0.4)
                     .multilineTextAlignment(.center)

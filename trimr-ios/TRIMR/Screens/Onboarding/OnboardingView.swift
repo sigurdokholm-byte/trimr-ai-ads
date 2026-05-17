@@ -66,6 +66,22 @@ struct OnboardingView: View {
             case .reviews:
                 OBReviews(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
+            case .finalReflection:
+                OBFinalReflection(
+                    state: state,
+                    onNext: state.goNext,
+                    onBack: state.goBack,
+                    progress: state.step.progress
+                )
+
+            case .confidenceChart:
+                OBConfidenceChart(
+                    satisfaction: state.satisfaction,
+                    onNext: state.goNext,
+                    onBack: state.goBack,
+                    progress: state.step.progress
+                )
+
             // MARK: Act II — Climax
             case .photoCapture:
                 OBPhotoCapture(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, capturedImage: $state.capturedImage)
@@ -154,7 +170,7 @@ struct OBProductCountQuiz: View {
             OBHeader(progress: progress, onBack: onBack)
 
             VStack(spacing: 28) {
-                Text("How many hair products\ndo you currently use?")
+                Text("how many hair products\ndo you currently use?")
                     .font(TFont.display(24))
                     .tracking(-0.4)
                     .multilineTextAlignment(.center)

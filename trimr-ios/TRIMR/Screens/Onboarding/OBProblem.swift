@@ -23,8 +23,8 @@ struct OBProblem: View {
                     + Text(".")
                         .foregroundStyle(Theme.text)
                 )
-                .font(TFont.display(28))
-                .tracking(-0.5)
+                .font(TFont.display(30))
+                .tracking(-0.6)
 
                 (
                     Text("for the ")
@@ -34,8 +34,8 @@ struct OBProblem: View {
                     + Text(".")
                         .foregroundStyle(Theme.text)
                 )
-                .font(TFont.display(28))
-                .tracking(-0.5)
+                .font(TFont.display(30))
+                .tracking(-0.6)
 
                 (
                     Text("and they ")
@@ -45,15 +45,21 @@ struct OBProblem: View {
                     + Text(".")
                         .foregroundStyle(Theme.text)
                 )
-                .font(TFont.display(28))
-                .tracking(-0.5)
+                .font(TFont.display(30))
+                .tracking(-0.6)
 
                 Spacer().frame(height: 12)
 
-                Text("until 6 weeks of regret in every mirror, every photo, every meeting.")
-                    .font(TFont.body(15))
-                    .foregroundStyle(Theme.muted)
-                    .lineSpacing(3)
+                (
+                    Text("don't be ")
+                        .foregroundStyle(Theme.text)
+                    + Text("that man")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(30))
+                .tracking(-0.6)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 28)

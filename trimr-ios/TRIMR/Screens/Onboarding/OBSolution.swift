@@ -1,80 +1,68 @@
 import SwiftUI
 
-/// "How it works" — Mau-style numbered list with gold accent dots, single
-/// closing caption beneath. Lowercase headline matches the conversational tone.
+/// The Solution. The direct narrative answer to OBProblem's pain, in the same
+/// display-line + inline-gold voice — no header, no cards — so the two screens
+/// read as one continuous thought. Mirrors Problem's "wrong cut / wrong face"
+/// beat-for-beat as "right cut / your face" so the payoff lands by echo.
 struct OBSolution: View {
     let onNext: () -> Void
     let onBack: () -> Void
     let progress: Double
-
-    private struct Step { let n: Int; let title: String; let emoji: String }
-    private let steps: [Step] = [
-        .init(n: 1, title: "scan your face shape",            emoji: "🔍"),
-        .init(n: 2, title: "find your top match",             emoji: "✂️"),
-        .init(n: 3, title: "see yourself in each cut",         emoji: "🪞"),
-    ]
 
     var body: some View {
         VStack(spacing: 0) {
             OBHeader(progress: progress, onBack: onBack)
 
             VStack(alignment: .leading, spacing: 22) {
-                Spacer().frame(height: 36)
-
-                Text("how it works")
-                    .font(TFont.display(30))
-                    .tracking(-0.5)
-                    .foregroundStyle(Theme.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                VStack(spacing: 14) {
-                    ForEach(steps, id: \.n) { step in
-                        HStack(spacing: 14) {
-                            ZStack {
-                                Circle().fill(Theme.gold)
-                                Text("\(step.n)")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundStyle(Color(hex: 0x0A0804))
-                            }
-                            .frame(width: 28, height: 28)
-
-                            HStack(spacing: 8) {
-                                Text(step.emoji).font(.system(size: 18))
-                                Text(step.title)
-                                    .font(TFont.body(16, weight: .semibold))
-                                    .foregroundStyle(Theme.text)
-                                Spacer(minLength: 0)
-                            }
-                        }
-                        .padding(.vertical, 14)
-                        .padding(.horizontal, 16)
-                        .background(Theme.card2)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Theme.gold.opacity(0.18), lineWidth: 1)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                    }
-                }
+                Spacer().frame(height: 28)
 
                 (
-                    Text("your perfect haircut, in ")
-                        .foregroundStyle(Theme.muted)
-                    + Text("90 seconds")
+                    Text("trimr finds the ")
+                        .foregroundStyle(Theme.text)
+                    + Text("right cut")
                         .foregroundStyle(Theme.gold)
-                        .fontWeight(.semibold)
-                    + Text(". no guesswork.")
-                        .foregroundStyle(Theme.muted)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
                 )
-                .font(TFont.body(14))
-                .padding(.top, 6)
+                .font(TFont.display(30))
+                .tracking(-0.6)
+
+                (
+                    Text("for ")
+                        .foregroundStyle(Theme.text)
+                    + Text("your face")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(30))
+                .tracking(-0.6)
+
+                (
+                    Text("in ")
+                        .foregroundStyle(Theme.text)
+                    + Text("30 seconds")
+                        .foregroundStyle(Theme.gold)
+                    + Text(".")
+                        .foregroundStyle(Theme.text)
+                )
+                .font(TFont.display(30))
+                .tracking(-0.6)
+
+                Spacer().frame(height: 12)
+
+                Text("no guesswork. no 6-week regret. just the one that actually fits.")
+                    .font(TFont.body(15))
+                    .foregroundStyle(Theme.muted)
+                    .lineSpacing(3)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 28)
 
             Spacer()
 
             Button(action: onNext) {
-                Text("got it")
+                Text("continue")
                     .font(TFont.body(16, weight: .semibold))
                     .foregroundStyle(Color(hex: 0x0A0804))
                     .frame(maxWidth: .infinity).padding(.vertical, 18)

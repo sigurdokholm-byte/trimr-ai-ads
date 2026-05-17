@@ -46,8 +46,8 @@ struct OBReflection1: View {
                         + Text(".")
                             .foregroundStyle(Theme.text)
                     )
-                    .font(TFont.display(28))
-                    .tracking(-0.5)
+                    .font(TFont.display(30))
+                    .tracking(-0.6)
                 } else {
                     Text(headlineParts.0)
                         .font(TFont.display(28))

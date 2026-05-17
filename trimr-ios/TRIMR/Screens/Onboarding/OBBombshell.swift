@@ -24,9 +24,9 @@ struct OBBombshell: View {
                 Spacer().frame(height: 12)
 
                 // Hero number block
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("based on what you've shared,")
-                        .font(TFont.body(13))
+                        .font(TFont.body(15))
                         .foregroundStyle(Theme.muted)
 
                     Text(firstImpressions.formatted())
@@ -37,12 +37,12 @@ struct OBBombshell: View {
                         .scaleEffect(numberScale)
 
                     Text("first impressions left in your life.")
-                        .font(TFont.body(15))
+                        .font(TFont.body(17, weight: .medium))
                         .foregroundStyle(Theme.text)
                 }
 
                 // Mau-style stat lines, lowercase, gold-highlighted phrases
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 18) {
                     (
                         Text("each one takes ")
                             .foregroundStyle(Theme.text)
@@ -52,7 +52,7 @@ struct OBBombshell: View {
                         + Text(".")
                             .foregroundStyle(Theme.text)
                     )
-                    .font(TFont.body(18, weight: .medium))
+                    .font(TFont.body(20, weight: .medium))
                     .opacity(line1Opacity)
 
                     (
@@ -69,7 +69,7 @@ struct OBBombshell: View {
                         + Text(".")
                             .foregroundStyle(Theme.text)
                     )
-                    .font(TFont.body(18, weight: .medium))
+                    .font(TFont.body(20, weight: .medium))
                     .opacity(line2Opacity)
 
                     (
@@ -81,7 +81,7 @@ struct OBBombshell: View {
                         + Text("?")
                             .foregroundStyle(Theme.text)
                     )
-                    .font(TFont.body(18, weight: .medium))
+                    .font(TFont.body(20, weight: .medium))
                     .opacity(line3Opacity)
                 }
             }
@@ -91,7 +91,7 @@ struct OBBombshell: View {
             Spacer()
 
             Button(action: onNext) {
-                Text("i'm in")
+                Text("all of them")
                     .font(TFont.body(16, weight: .semibold))
                     .foregroundStyle(Color(hex: 0x0A0804))
                     .frame(maxWidth: .infinity).padding(.vertical, 18)

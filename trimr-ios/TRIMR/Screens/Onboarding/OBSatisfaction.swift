@@ -31,7 +31,7 @@ struct OBSatisfaction: View {
             OBHeader(progress: progress, onBack: onBack)
 
             VStack(spacing: 28) {
-                Text("How happy are you with your current haircut?")
+                Text("how happy are you with your current haircut?")
                     .font(TFont.display(24))
                     .tracking(-0.4)
                     .multilineTextAlignment(.center)
