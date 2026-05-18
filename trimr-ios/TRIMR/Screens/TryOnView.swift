@@ -13,7 +13,7 @@ struct TryOnView: View {
     @State private var response: AnalyzeResponse?
     @State private var beforePhoto: UIImage?
     @State private var isGenerating = false
-    @State private var errorMessage: String?
+    @State private var errorMessage: String = ""
 
     @EnvironmentObject var app: AppState
     @EnvironmentObject var profile: ProfileStore
@@ -62,11 +62,6 @@ struct TryOnView: View {
             Button("Take Photo") { customRefSource = .camera }
             Button("Choose from Library") { customRefSource = .library }
             Button("Cancel", role: .cancel) { }
-        }
-        .alert("Try-on failed", isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
-            Button("OK", role: .cancel) { errorMessage = nil }
-        } message: {
-            Text(errorMessage ?? "")
         }
         .fullScreenCover(isPresented: $showUploadSheet) {
             if hasSelection {
@@ -138,7 +133,7 @@ struct TryOnView: View {
                 Text("Try-on failed")
                     .font(TFont.display(20))
                     .foregroundStyle(Theme.text)
-                Text(errorMessage?.isEmpty == false ? errorMessage! : "Something went wrong. Please try again.")
+                Text(errorMessage.isEmpty ? "Something went wrong. Please try again." : errorMessage)
                     .font(TFont.body(13))
                     .foregroundStyle(Theme.muted)
                     .multilineTextAlignment(.center)
@@ -188,15 +183,21 @@ struct TryOnView: View {
             guard await FaceValidator.hasFace(in: image) else {
                 encodingTask.cancel()
                 errorMessage = "We couldn't find a face in that photo. Try a clear, front-facing selfie in good light."
+                showUploadSheet = false
+                withAnimation { phase = .error }
                 return
             }
             guard let base64 = await encodingTask.value else {
                 errorMessage = "Couldn't read your photo."
+                showUploadSheet = false
+                withAnimation { phase = .error }
                 return
             }
             do {
                 guard await auth.ensureSession() else {
                     errorMessage = "Please sign in again and try once more."
+                    showUploadSheet = false
+                    withAnimation { phase = .error }
                     return
                 }
 
@@ -211,6 +212,9 @@ struct TryOnView: View {
                     referenceUrl = cut.referenceUrl.absoluteString
                     targetStyle = cut.name
                 } else {
+                    errorMessage = "Pick a style first."
+                    showUploadSheet = false
+                    withAnimation { phase = .error }
                     return
                 }
 
