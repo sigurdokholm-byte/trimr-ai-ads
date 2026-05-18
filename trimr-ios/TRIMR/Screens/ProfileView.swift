@@ -1,5 +1,4 @@
 import SwiftUI
-import RevenueCatUI
 
 struct SettingsView: View {
     @EnvironmentObject var app: AppState
@@ -8,14 +7,16 @@ struct SettingsView: View {
 
     @State private var showSignOut = false
     @State private var showDelete = false
-    @State private var showCustomerCenter = false
+    @State private var isRestoring = false
+    @State private var showRestoreResult = false
+    @State private var restoreResultMessage = ""
 
     private struct Row: Identifiable {
         let id = UUID()
         let icon: String
         let tint: Color
         let title: String
-        let sub: String?p
+        let sub: String?
         let action: (() -> Void)?
         let danger: Bool
     }
@@ -33,9 +34,9 @@ struct SettingsView: View {
                 action: { app.push(.pricing) }, danger: false
             ),
             .init(
-                icon: "person.crop.circle.badge.questionmark", tint: Color(hex: 0x3DB5B0),
-                title: "Manage Purchases", sub: "Restore, refunds & purchase history",
-                action: { showCustomerCenter = true }, danger: false
+                icon: "arrow.clockwise.circle.fill", tint: Color(hex: 0x3DB5B0),
+                title: "Restore Purchases", sub: isRestoring ? "Restoring…" : "Restore previous purchases",
+                action: { restorePurchases() }, danger: false
             ),
             .init(
                 icon: "globe", tint: Color(hex: 0x3DB5B0),
@@ -102,8 +103,10 @@ struct SettingsView: View {
             }
         }
         .background(Theme.bg.ignoresSafeArea())
-        .sheet(isPresented: $showCustomerCenter) {
-            CustomerCenterView()
+        .alert("Restore Purchases", isPresented: $showRestoreResult) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(restoreResultMessage)
         }
         .confirmationDialog(
             "Sign out of TRIMR?",
@@ -236,6 +239,23 @@ struct SettingsView: View {
 
     private func deleteAccount() {
         Task { await app.deleteAccount() }
+    }
+
+    /// StoreKit-based restore (independent of RevenueCat). `StoreKitManager`
+    /// re-redeems entitlements via `validate-apple-iap`, so any look packs that
+    /// never reached the backend are re-credited.
+    private func restorePurchases() {
+        guard !isRestoring else { return }
+        isRestoring = true
+        Task {
+            await app.store.restorePurchases()
+            await app.profile.load()
+            isRestoring = false
+            restoreResultMessage = app.store.purchaseError
+                ?? app.store.restoreMessage
+                ?? "Restore complete."
+            showRestoreResult = true
+        }
     }
 
     private var emailDisplay: String {

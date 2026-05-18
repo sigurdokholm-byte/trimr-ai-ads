@@ -47,6 +47,11 @@
 		AA000000000000000000004E /* OBReflection2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000004D /* OBReflection2.swift */; };
 		AA00000000000000000000A5 /* OBFinalReflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000A4 /* OBFinalReflection.swift */; };
 		AA00000000000000000000A7 /* OBConfidenceChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000A6 /* OBConfidenceChart.swift */; };
+		AA00000000000000000000A9 /* OBShampooQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000A8 /* OBShampooQuiz.swift */; };
+		AA00000000000000000000AB /* OBHowItWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000AA /* OBHowItWorks.swift */; };
+		AA00000000000000000000B1 /* OBGoalsRecap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000B0 /* OBGoalsRecap.swift */; };
+		AA00000000000000000000AD /* OBSampleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000AC /* OBSampleResult.swift */; };
+		AA00000000000000000000AF /* OBSampleResultDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000AE /* OBSampleResultDetails.swift */; };
 		AA0000000000000000000050 /* OBReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000004F /* OBReviews.swift */; };
 		AA0000000000000000000052 /* OBSatisfaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000051 /* OBSatisfaction.swift */; };
 		AA0000000000000000000054 /* OBSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000053 /* OBSignIn.swift */; };
@@ -118,6 +123,11 @@
 		AA000000000000000000004D /* OBReflection2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBReflection2.swift; sourceTree = "<group>"; };
 		AA00000000000000000000A4 /* OBFinalReflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBFinalReflection.swift; sourceTree = "<group>"; };
 		AA00000000000000000000A6 /* OBConfidenceChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBConfidenceChart.swift; sourceTree = "<group>"; };
+		AA00000000000000000000A8 /* OBShampooQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBShampooQuiz.swift; sourceTree = "<group>"; };
+		AA00000000000000000000AA /* OBHowItWorks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBHowItWorks.swift; sourceTree = "<group>"; };
+		AA00000000000000000000B0 /* OBGoalsRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBGoalsRecap.swift; sourceTree = "<group>"; };
+		AA00000000000000000000AC /* OBSampleResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBSampleResult.swift; sourceTree = "<group>"; };
+		AA00000000000000000000AE /* OBSampleResultDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBSampleResultDetails.swift; sourceTree = "<group>"; };
 		AA000000000000000000004F /* OBReviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBReviews.swift; sourceTree = "<group>"; };
 		AA0000000000000000000051 /* OBSatisfaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBSatisfaction.swift; sourceTree = "<group>"; };
 		AA0000000000000000000053 /* OBSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBSignIn.swift; sourceTree = "<group>"; };
@@ -246,6 +256,11 @@
 				AA000000000000000000004D /* OBReflection2.swift */,
 				AA00000000000000000000A4 /* OBFinalReflection.swift */,
 				AA00000000000000000000A6 /* OBConfidenceChart.swift */,
+				AA00000000000000000000A8 /* OBShampooQuiz.swift */,
+				AA00000000000000000000AA /* OBHowItWorks.swift */,
+				AA00000000000000000000B0 /* OBGoalsRecap.swift */,
+				AA00000000000000000000AC /* OBSampleResult.swift */,
+				AA00000000000000000000AE /* OBSampleResultDetails.swift */,
 				AA000000000000000000004F /* OBReviews.swift */,
 				AA0000000000000000000051 /* OBSatisfaction.swift */,
 				AA0000000000000000000053 /* OBSignIn.swift */,
@@ -418,6 +433,11 @@
 				AA000000000000000000004E /* OBReflection2.swift in Sources */,
 				AA00000000000000000000A5 /* OBFinalReflection.swift in Sources */,
 				AA00000000000000000000A7 /* OBConfidenceChart.swift in Sources */,
+				AA00000000000000000000A9 /* OBShampooQuiz.swift in Sources */,
+				AA00000000000000000000AB /* OBHowItWorks.swift in Sources */,
+				AA00000000000000000000B1 /* OBGoalsRecap.swift in Sources */,
+				AA00000000000000000000AD /* OBSampleResult.swift in Sources */,
+				AA00000000000000000000AF /* OBSampleResultDetails.swift in Sources */,
 				AA0000000000000000000050 /* OBReviews.swift in Sources */,
 				AA0000000000000000000052 /* OBSatisfaction.swift in Sources */,
 				AA0000000000000000000054 /* OBSignIn.swift in Sources */,

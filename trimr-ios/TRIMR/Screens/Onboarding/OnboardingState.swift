@@ -18,11 +18,16 @@ enum OnboardingStep: Int, CaseIterable {
     case reflection1
     case styleGoalQuiz
     case productCountQuiz
+    case shampooFrequency
     case intent
     case reflection2
     case reviews
     case finalReflection
     case confidenceChart
+    case howItWorks
+    case sampleResult
+    case sampleResultDetails
+    case socialProof
     // Act II — Climax
     case photoCapture
     case analyzing
@@ -72,6 +77,10 @@ enum ProductCount: String, CaseIterable, Codable, Hashable {
     case none, one, twoOrThree, fourPlus
 }
 
+enum ShampooFrequency: String, CaseIterable, Codable, Hashable {
+    case everyday, everyOtherDay, onceAWeek, never
+}
+
 enum CommitmentLevel: String, CaseIterable, Codable, Hashable {
     case new30Days        // "A new cut I love"
     case confidence       // "Confidence in any room"
@@ -88,6 +97,7 @@ final class OnboardingState: ObservableObject {
     @Published var faceShape: FaceShape? = nil             // nil = "Let Trimr detect it"
     @Published var hairType: HairType? = nil
     @Published var productCount: ProductCount? = nil
+    @Published var shampooFrequency: ShampooFrequency? = nil
     @Published var styleGoals: Set<StyleGoal> = []
     @Published var capturedImage: UIImage? = nil
     @Published var analysis: AnalyzeResponse? = nil

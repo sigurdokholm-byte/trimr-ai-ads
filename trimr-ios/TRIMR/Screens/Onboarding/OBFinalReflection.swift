@@ -155,7 +155,7 @@ struct OBFinalReflection: View {
                 }
 
                 Button(action: onNext) {
-                    Text("show me the proof")
+                    Text("continue")
                         .font(TFont.body(16, weight: .semibold))
                         .foregroundStyle(Color(hex: 0x0A0804))
                         .frame(maxWidth: .infinity).padding(.vertical, 18)

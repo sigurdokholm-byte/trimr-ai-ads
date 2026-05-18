@@ -50,9 +50,8 @@ struct OBSignIn: View {
                     }
                 } label: {
                     HStack(spacing: 10) {
-                        Text("G")
-                            .font(.system(size: 18, weight: .bold, design: .serif))
-                            .foregroundStyle(Color(hex: 0x4285F4))
+                        GoogleGLogo()
+                            .frame(width: 18, height: 18)
                         Text("Continue with Google")
                     }
                     .font(TFont.body(15, weight: .semibold))

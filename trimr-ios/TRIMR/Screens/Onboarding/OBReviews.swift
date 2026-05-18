@@ -5,11 +5,23 @@ struct OBReviews: View {
     let onBack: () -> Void
     let progress: Double
 
-    private struct Review { let name: String; let stars: Int; let body: String; let image: String }
+    private struct Review {
+        let name: String
+        let stars: Int
+        let headline: String
+        let body: String
+        let image: String
+    }
     private let testimonials: [Review] = [
-        .init(name: "Emma R.",   stars: 5, body: "I finally found a cut that fits my square face shape. I am super happy. This app saved me from another bad haircut.", image: "ReviewEmma"),
-        .init(name: "Marcus T.", stars: 5, body: "I've had haircut regret before. This made me feel way safer before booking my appointment.", image: "ReviewMarcus"),
-        .init(name: "Jordan P.", stars: 5, body: "Walked into the barber with a screenshot and walked out looking exactly like it. First time that's ever happened.", image: "ReviewJordan"),
+        .init(name: "Emma R.",   stars: 5, headline: "GAME CHANGER.",
+              body: "I finally found a cut that fits my square face shape. I am super happy. This app saved me from another bad haircut.",
+              image: "ReviewEmma"),
+        .init(name: "Marcus T.", stars: 5, headline: "NO MORE REGRET.",
+              body: "I've had haircut regret before. This made me feel way safer before booking my appointment.",
+              image: "ReviewMarcus"),
+        .init(name: "Jordan P.", stars: 5, headline: "EXACTLY LIKE THE PIC.",
+              body: "Walked into the barber with a screenshot and walked out looking exactly like it. First time that's ever happened.",
+              image: "ReviewJordan"),
     ]
 
     var body: some View {
@@ -17,61 +29,87 @@ struct OBReviews: View {
             OBHeader(progress: progress, onBack: onBack)
 
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 14) {
-                    Text("you're in the right place")
-                        .font(TFont.display(30)).tracking(-0.6)
-                        .multilineTextAlignment(.center).foregroundStyle(Theme.text)
-                        .padding(.top, 22)
+                VStack(spacing: 16) {
+                    (
+                        Text("trimr was designed for ")
+                            .foregroundStyle(Theme.text)
+                        + Text("men like you")
+                            .foregroundStyle(Theme.gold)
+                        + Text(".")
+                            .foregroundStyle(Theme.text)
+                    )
+                    .font(TFont.display(28)).tracking(-0.6)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+
+                    Text("reviews from real trimr users.")
+                        .font(TFont.body(13))
+                        .foregroundStyle(Theme.muted)
+
+                    // Laurel #1 badge
+                    HStack(spacing: 10) {
+                        Image(systemName: "laurel.leading")
+                            .font(.system(size: 38))
+                            .foregroundStyle(Theme.gold)
+                        VStack(spacing: 1) {
+                            Text("the #1")
+                            Text("hair app")
+                        }
+                        .font(TFont.body(13, weight: .bold))
+                        .foregroundStyle(Theme.text)
+                        Image(systemName: "laurel.trailing")
+                            .font(.system(size: 38))
+                            .foregroundStyle(Theme.gold)
+                    }
+                    .padding(.top, 2)
 
                     HStack(spacing: 3) {
-                        ForEach(0..<5, id: \.self) { _ in Text("★").font(.system(size: 24)).foregroundStyle(Theme.gold) }
-                    }
-                    .padding(.bottom, 6)
-
-                    // Header card
-                    VStack(spacing: 14) {
-                        Text("Tens of thousands have started the same place as you, and trimr helped them find the right cut.")
-                            .font(TFont.body(16)).foregroundStyle(Theme.muted)
-                            .multilineTextAlignment(.center).lineSpacing(4)
-
-                        HStack(spacing: 12) {
-                            ZStack {
-                                avatar("ReviewEmma", offset: 0)
-                                avatar("ReviewMarcus", offset: 22)
-                                avatar("ReviewJordan", offset: 44)
-                            }
-                            .frame(width: 76, height: 32)
-
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("+55.000").font(TFont.display(16)).tracking(-0.3).foregroundStyle(Theme.text)
-                                Text("happy users worldwide").font(TFont.body(10)).foregroundStyle(Theme.muted)
-                            }
+                        ForEach(0..<5, id: \.self) { _ in
+                            Text("★").font(.system(size: 18)).foregroundStyle(Theme.gold)
                         }
                     }
-                    .padding(EdgeInsets(top: 16, leading: 18, bottom: 16, trailing: 18))
-                    .frame(maxWidth: .infinity)
-                    .background(Theme.card2)
-                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.white.opacity(0.05)))
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
+
+                    HStack(spacing: 12) {
+                        ZStack {
+                            avatar("ReviewEmma", offset: 0)
+                            avatar("ReviewMarcus", offset: 22)
+                            avatar("ReviewJordan", offset: 44)
+                        }
+                        .frame(width: 76, height: 32)
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("+55.000").font(TFont.display(16)).tracking(-0.3).foregroundStyle(Theme.text)
+                            Text("happy users worldwide").font(TFont.body(10)).foregroundStyle(Theme.muted)
+                        }
+                    }
+                    .padding(.bottom, 4)
 
                     VStack(spacing: 10) {
                         ForEach(Array(testimonials.enumerated()), id: \.offset) { _, t in
-                            HStack(spacing: 12) {
+                            HStack(alignment: .top, spacing: 12) {
                                 Image(t.image).resizable().scaledToFill()
-                                    .frame(width: 64, height: 64).clipped()
+                                    .frame(width: 52, height: 52).clipped()
                                     .clipShape(Circle())
                                     .overlay(Circle().stroke(Color.white.opacity(0.08), lineWidth: 1))
-                                VStack(alignment: .leading, spacing: 6) {
-                                    HStack {
-                                        Text(t.name).font(TFont.display(14)).foregroundStyle(Theme.text)
-                                        Spacer()
-                                        Text(String(repeating: "★", count: t.stars))
-                                            .font(.system(size: 11)).foregroundStyle(Theme.gold)
-                                    }
-                                    Text(t.body).font(TFont.body(12.5)).foregroundStyle(Theme.muted).lineSpacing(3)
+
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(String(repeating: "★", count: t.stars))
+                                        .font(.system(size: 11)).foregroundStyle(Theme.gold)
+                                    Text(t.headline)
+                                        .font(TFont.body(13, weight: .bold))
+                                        .foregroundStyle(Theme.text)
+                                    Text(t.body)
+                                        .font(TFont.body(12.5))
+                                        .foregroundStyle(Theme.muted)
+                                        .lineSpacing(3)
+                                    Text(t.name)
+                                        .font(TFont.body(10))
+                                        .foregroundStyle(Theme.muted)
                                 }
+                                Spacer(minLength: 0)
                             }
                             .padding(EdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 16))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Theme.card2)
                             .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.white.opacity(0.05)))
                             .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -83,11 +121,13 @@ struct OBReviews: View {
             }
 
             Button(action: onNext) {
-                Text("Continue")
+                Text("continue")
                     .font(TFont.body(16, weight: .semibold))
                     .foregroundStyle(Color(hex: 0x0A0804))
                     .frame(maxWidth: .infinity).padding(.vertical, 18)
-                    .background(Theme.gold).clipShape(Capsule())
+                    .background(Theme.goldGlow)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .shadow(color: Theme.gold.opacity(0.35), radius: 18, y: 8)
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 24)
