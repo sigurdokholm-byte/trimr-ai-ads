@@ -4,31 +4,29 @@ import RevenueCat
 // MARK: - Configuration
 
 enum RevenueCatConfig {
-    /// RevenueCat public SDK keys.
+    /// RevenueCat public **App Store** SDK key — used for BOTH DEBUG and RELEASE
+    /// (daily-habit pivot, 2026-05-18).
     ///
-    /// DEBUG builds use the **Test Store** key: it works on the simulator with
-    /// the local `Configuration.storekit` file with no App Store Connect setup,
-    /// so the paywall + purchase flow can be exercised end-to-end during
-    /// development. RELEASE builds use the production **App Store** (`appl_…`)
-    /// key — RevenueCat rejects (and App Review flags) a Test Store key in
-    /// production, so the two must never be swapped.
+    /// DEBUG runs on the simulator against the scheme's StoreKit Configuration
+    /// file (`Configuration.storekit` — defines `ai.trimr.pro.weekly` /
+    /// `.yearly` + the 3-day free trial). RevenueCat fetches the Offering from
+    /// its servers with this key and resolves packages against the local
+    /// StoreKit config, so the full trial → purchase flow works on the
+    /// simulator with no sandbox.
     ///
-    /// ⚠️ The App Store app in the RevenueCat dashboard must be fully
-    /// provisioned (bundle id `com.trimrai.app` + App Store Connect in-app
-    /// purchase key) before the `appl_…` key returns anything but
-    /// "Invalid API Key". See [[project-ios-revenuecat]].
-    #if DEBUG
-    static let apiKey = "test_irpwYLREFODNfzhwHJUPZikppsA"
-    #else
+    /// The old DEBUG **Test Store** key was removed: it serves RevenueCat's
+    /// hosted test store, which has no App Store subscription products, so the
+    /// weekly/yearly packages never resolved there (→ "That plan isn't
+    /// available"). The RC account is verified healthy as of 2026-05-18
+    /// (project `proj182095a3`); if this key ever returns "Invalid API Key",
+    /// re-copy it from RC dashboard → Project → API keys. See
+    /// [[project-ios-revenuecat]].
     static let apiKey = "appl_GhjzqKHitDrYUZMtHWCMyCJxQnQ"
-    #endif
 
-    /// Must EXACTLY match the entitlement identifier configured in the
-    /// RevenueCat dashboard (Project → Entitlements). Today the only iOS
-    /// products are consumable look packs, which do NOT grant an entitlement,
-    /// so this stays inactive until a real "Pro" subscription product is added.
-    /// Feature gating still runs off Supabase `profiles` (see ProfileStore) —
-    /// this is wired and ready, not yet authoritative.
+    /// Must EXACTLY match the entitlement identifier in the RevenueCat
+    /// dashboard. `ai.trimr.pro.weekly` / `ai.trimr.pro.yearly` are attached to
+    /// this entitlement, so an active subscription flips
+    /// `RevenueCatManager.isProEntitlementActive`.
     static let proEntitlementID = "Hairstyle Try On - Trimr Pro"
 }
 
