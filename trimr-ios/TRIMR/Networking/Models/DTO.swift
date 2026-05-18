@@ -52,6 +52,10 @@ struct AnalyzeRequest: Encodable {
     let image: String  // base64 data URL
     let preferences: [String: String]?
     let count: Int = 1
+    /// Try-on mode: the catalog cut the user chose (nil for custom-reference uploads).
+    var targetStyle: String? = nil
+    /// Try-on mode: reference hairstyle image URL. Presence switches the edge fn to assess-the-chosen-cut.
+    var referenceUrl: String? = nil
 }
 
 struct AnalyzeResponse: Decodable {
