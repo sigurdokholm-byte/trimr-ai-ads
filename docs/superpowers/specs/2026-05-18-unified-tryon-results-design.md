@@ -79,8 +79,11 @@ Files: `trimr-ios/TRIMR/Screens/TryOnView.swift`,
 - Remove the inline `resultCard` / before-after-only result path in `TryOnView`.
 - Keep the existing credit gate (`profile.canTryOn`) and refresh after the call.
 - Reuse the analyzing/loading + error UX.
-- Because `whyItWorks` is `null`, `ResultView`'s existing
-  hide-empty-section logic drops that block automatically — no iOS conditional.
+- `ResultView` renders the "Why It Works" section unconditionally and falls
+  back to sample copy when `whyItWorks` is nil. So a `showWhy: Bool = true`
+  init param is added; the try-on call site passes `false` to hide the section
+  and to persist `whyItWorks` as nil on save. Analysis/onboarding callers keep
+  the default (`true`) — unchanged.
 
 Save-to-library uses `kind: "analysis"` (full detail persisted), matching the
 data now available.
