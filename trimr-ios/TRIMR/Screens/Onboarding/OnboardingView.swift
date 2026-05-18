@@ -57,6 +57,9 @@ struct OnboardingView: View {
             case .productCountQuiz:
                 OBProductCountQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.productCount)
 
+            case .shampooFrequency:
+                OBShampooQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.shampooFrequency)
+
             case .intent:
                 OBGoal(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.intent)
 
@@ -64,7 +67,7 @@ struct OnboardingView: View {
                 OBReflection2(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .reviews:
-                OBReviews(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+                OBGoalsRecap(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             case .finalReflection:
                 OBFinalReflection(
@@ -81,6 +84,18 @@ struct OnboardingView: View {
                     onBack: state.goBack,
                     progress: state.step.progress
                 )
+
+            case .howItWorks:
+                OBHowItWorks(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .sampleResult:
+                OBSampleResult(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .sampleResultDetails:
+                OBSampleResultDetails(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
+
+            case .socialProof:
+                OBReviews(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
             // MARK: Act II — Climax
             case .photoCapture:
@@ -111,7 +126,7 @@ struct OnboardingView: View {
                 )
 
             case .paywall:
-                OBPaywall(
+                SubscriptionPaywall(
                     name: state.name,
                     onClose: { state.step = .freeReveal },
                     onPurchased: { state.step = .fullReveal }

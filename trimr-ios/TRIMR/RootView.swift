@@ -35,7 +35,10 @@ struct MainShell: View {
                 switch app.navStack.last {
                 case .haircolor:        ScreenWrap(title: "Hair Color") { HairColorView() }
                 case .result:           ScreenWrap(title: nil) { ResultView() }
-                case .pricing:          ScreenWrap(title: "Pricing") { PricingView() }
+                case .pricing:          SubscriptionPaywall(name: app.userName, onClose: { app.pop() }, onPurchased: { app.pop() })
+                case .dailyScan:        DailyScanView(onDone: { app.pop() })
+                case .routine:          ScreenWrap(title: "Your Routine") { RoutineView() }
+                case .progress:         ScreenWrap(title: "Progress") { HairProgressView() }
                 case .settings:         ScreenWrap(title: "Settings") { SettingsView() }
                 case .photoGuidelines:  ScreenWrap(title: "Photo Guidelines") { PhotoGuidelinesView() }
                 case .language:         ScreenWrap(title: "Language") { LanguageView() }

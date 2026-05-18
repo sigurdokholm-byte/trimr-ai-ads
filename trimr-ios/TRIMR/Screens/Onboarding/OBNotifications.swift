@@ -20,12 +20,12 @@ struct OBNotifications: View {
     }
 
     private let benefits: [Benefit] = [
-        .init(symbol: "scissors",
-              title: "fresh-cut reminders",
-              body: "we'll nudge you when it's time."),
-        .init(symbol: "sparkles",
-              title: "new looks for you",
-              body: "fresh matches when trends shift."),
+        .init(symbol: "camera.viewfinder",
+              title: "daily scan reminder",
+              body: "one nudge a day to check your hair in."),
+        .init(symbol: "flame.fill",
+              title: "keep your streak",
+              body: "don't break the chain — improve daily."),
     ]
 
     var body: some View {
@@ -60,7 +60,7 @@ struct OBNotifications: View {
 
                 Spacer().frame(height: 6)
 
-                Text("two soft pings a week. nothing else.")
+                Text("one daily nudge. keep your streak alive.")
                     .font(TFont.body(13))
                     .foregroundStyle(Theme.muted)
 
@@ -170,6 +170,7 @@ struct OBNotifications: View {
         ) { ok, _ in
             DispatchQueue.main.async {
                 granted = ok
+                if ok { HairNotifications.scheduleDailyReminder() }
                 requesting = false
                 onNext()
             }

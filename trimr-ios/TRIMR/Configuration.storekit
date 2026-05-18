@@ -1,0 +1,170 @@
+{
+  "identifier" : "TRIMR-StoreKit-Config",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "1A000001",
+      "localizations" : [
+        {
+          "description" : "Generate 3 AI hairstyle try-ons.",
+          "displayName" : "3 Looks",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "ai.trimr.looks.3",
+      "referenceName" : "3 looks",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "6.99",
+      "familyShareable" : false,
+      "internalID" : "1A000002",
+      "localizations" : [
+        {
+          "description" : "Generate 10 AI hairstyle try-ons.",
+          "displayName" : "10 Looks",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "ai.trimr.looks.10",
+      "referenceName" : "10 looks",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "1A000003",
+      "localizations" : [
+        {
+          "description" : "Generate 30 AI hairstyle try-ons. Best value.",
+          "displayName" : "30 Looks",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "ai.trimr.looks.30",
+      "referenceName" : "30 looks",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6766304264",
+    "_developerTeamID" : "D48648X4WY",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21500001",
+      "localizations" : [],
+      "name" : "TRIMR Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "6.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "2A000001",
+          "introductoryOffer" : {
+            "internalID" : "2A000101",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Daily AI hair scan, personalized routine & progress tracking.",
+              "displayName" : "TRIMR Pro — Weekly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "ai.trimr.pro.weekly",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "TRIMR Pro Weekly",
+          "subscriptionGroupID" : "21500001",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : []
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "39.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "2A000002",
+          "introductoryOffer" : {
+            "internalID" : "2A000102",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Daily AI hair scan, personalized routine & progress tracking. Best value.",
+              "displayName" : "TRIMR Pro — Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "ai.trimr.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "TRIMR Pro Yearly",
+          "subscriptionGroupID" : "21500001",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : []
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
