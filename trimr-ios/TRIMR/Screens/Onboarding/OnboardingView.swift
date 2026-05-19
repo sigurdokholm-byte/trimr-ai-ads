@@ -126,7 +126,7 @@ struct OnboardingView: View {
                 )
 
             case .paywall:
-                SubscriptionPaywall(
+                RCPaywallScreen(
                     name: state.name,
                     onClose: { state.step = .freeReveal },
                     onPurchased: { state.step = .fullReveal }

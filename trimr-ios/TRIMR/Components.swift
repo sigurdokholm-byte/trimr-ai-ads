@@ -1,6 +1,7 @@
 import SwiftUI
 import Charts
 import UserNotifications
+import RevenueCatUI
 
 // MARK: - Primitives
 
@@ -1508,5 +1509,49 @@ enum HairNotifications {
     static func cancelDailyReminder() {
         UNUserNotificationCenter.current()
             .removePendingNotificationRequests(withIdentifiers: [dailyID])
+    }
+}
+
+// MARK: - RevenueCat-hosted paywall (remote-configurable, A/B-testable)
+
+/// Renders the paywall designed in the RevenueCat dashboard (attached to the
+/// current Offering) via RevenueCatUI. Drop-in replacement for
+/// `SubscriptionPaywall` — same `name / onClose / onPurchased` signature so the
+/// onboarding `.paywall` step and the pushed `.pricing` screen are unchanged.
+/// Copy/layout/pricing/experiments are all edited in the RC dashboard with no
+/// app release. We're in `.revenueCat` mode, so RC's view performs the
+/// purchase/restore itself — no observer-mode handlers needed.
+///
+/// `onPurchaseCompleted` advances on a *completed purchase* (not strictly the
+/// entitlement) so onboarding never dead-ends; the real subscription gate is
+/// still enforced server-side (`profiles.subscription_tier` via the webhook,
+/// and `RevenueCatManager.isProEntitlementActive`).
+struct RCPaywallScreen: View {
+    let name: String
+    let onClose: () -> Void
+    let onPurchased: () -> Void
+
+    @EnvironmentObject private var app: AppState
+    @EnvironmentObject private var rc: RevenueCatManager
+
+    var body: some View {
+        PaywallView(displayCloseButton: true)
+            .onPurchaseCompleted { _ in
+                Task {
+                    await rc.refresh()
+                    await app.profile.refresh()
+                    onPurchased()
+                }
+            }
+            .onRestoreCompleted { info in
+                if info.entitlements[RevenueCatConfig.proEntitlementID]?.isActive == true {
+                    Task {
+                        await app.profile.refresh()
+                        onPurchased()
+                    }
+                }
+            }
+            .onRequestedDismissal { onClose() }
+            .ignoresSafeArea()
     }
 }
