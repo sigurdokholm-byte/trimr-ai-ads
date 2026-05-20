@@ -54,6 +54,23 @@ struct ResultView: View {
         .init(icon: "scissors", label: "Styling Difficulty", value: 88),
     ]
 
+    /// Bars to render: prefers the real breakdown from the AI response, falls
+    /// back to the static sample for previews and the no-response onboarding
+    /// sample card. Keeps the visual order matching the static `compat` so the
+    /// view code below doesn't care which source is used.
+    private var compatRows: [CompatRow] {
+        guard let b = response?.recommendation.compatibilityBreakdown else {
+            return compat
+        }
+        return [
+            .init(icon: "brain.head.profile",     label: "Face Shape Match",   value: b.faceShapeMatch ?? 50),
+            .init(icon: "person.fill",            label: "Age Appropriate",    value: b.ageAppropriateness ?? 50),
+            .init(icon: "wrench.adjustable.fill", label: "Maintenance",        value: b.maintenance ?? 50),
+            .init(icon: "flame.fill",             label: "Trend Score",        value: b.trendScore ?? 50),
+            .init(icon: "scissors",               label: "Styling Difficulty", value: b.stylingDifficulty ?? 50),
+        ]
+    }
+
     @State private var open: Set<String> = []
     @State private var saved = false
     @State private var saving = false
@@ -395,7 +412,7 @@ struct ResultView: View {
 
     private var compatBreakdown: some View {
         VStack(spacing: 12) {
-            ForEach(Array(compat.enumerated()), id: \.offset) { _, r in
+            ForEach(Array(compatRows.enumerated()), id: \.offset) { _, r in
                 VStack(spacing: 6) {
                     HStack(spacing: 8) {
                         Image(systemName: r.icon)
