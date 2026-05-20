@@ -62,6 +62,9 @@ struct ResultView: View {
         guard let b = response?.recommendation.compatibilityBreakdown else {
             return compat
         }
+        // `hairTextureMatch` is intentionally not displayed — kept off the
+        // bar list to match the historical 5-row layout. Still persisted
+        // via saveButton when the AI returns a real breakdown.
         return [
             .init(icon: "brain.head.profile",     label: "Face Shape Match",   value: b.faceShapeMatch ?? 50),
             .init(icon: "person.fill",            label: "Age Appropriate",    value: b.ageAppropriateness ?? 50),
@@ -508,12 +511,12 @@ struct ResultView: View {
                 ?? ""
             let breakdown: CompatibilityBreakdown = response?.recommendation.compatibilityBreakdown
                 ?? CompatibilityBreakdown(
-                    faceShapeMatch: compat.first(where: { $0.label == "Face Shape Match" })?.value,
+                    faceShapeMatch: compatRows.first(where: { $0.label == "Face Shape Match" })?.value,
                     hairTextureMatch: nil,
-                    ageAppropriateness: compat.first(where: { $0.label == "Age Appropriate" })?.value,
-                    maintenance: compat.first(where: { $0.label == "Maintenance" })?.value,
-                    trendScore: compat.first(where: { $0.label == "Trend Score" })?.value,
-                    stylingDifficulty: compat.first(where: { $0.label == "Styling Difficulty" })?.value
+                    ageAppropriateness: compatRows.first(where: { $0.label == "Age Appropriate" })?.value,
+                    maintenance: compatRows.first(where: { $0.label == "Maintenance" })?.value,
+                    trendScore: compatRows.first(where: { $0.label == "Trend Score" })?.value,
+                    stylingDifficulty: compatRows.first(where: { $0.label == "Styling Difficulty" })?.value
                 )
             let savedProducts = (response?.recommendation.products ?? [])
                 .map { SavedProduct(name: $0.name, purpose: $0.purpose) }
