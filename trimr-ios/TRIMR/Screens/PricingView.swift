@@ -217,8 +217,12 @@ struct PricingView: View {
 
     private func purchase() async {
         guard let product = store.product(for: selected) else { return }
-        await store.purchase(product)
-        if store.purchaseError == nil {
+        // Pop only when StoreKit AND the server both confirmed the purchase.
+        // `purchase()` returns false for user-cancel, pending, and errors — a
+        // cancelled purchase sets no `purchaseError`, so checking that flag
+        // would dismiss the screen as if the credits had landed.
+        let didPurchase = await store.purchase(product)
+        if didPurchase {
             await app.profile.load()
             app.pop()
         }

@@ -243,8 +243,12 @@ struct OBPaywall: View {
 
     private func purchase() async {
         guard let product = store.product(for: selected) else { return }
-        await store.purchase(product)
-        if store.purchaseError == nil {
+        // Advance only when StoreKit AND the server both confirmed the purchase.
+        // `purchase()` returns false for user-cancel, pending, and errors — a
+        // cancelled purchase sets no `purchaseError`, so checking that flag
+        // would wave cancellers straight through the paywall without paying.
+        let didPurchase = await store.purchase(product)
+        if didPurchase {
             onPurchased()
         }
     }

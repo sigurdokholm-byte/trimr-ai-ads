@@ -72,10 +72,12 @@ final class StoreKitManager: ObservableObject {
     // MARK: - Purchase
 
     /// Returns `true` only when the user actually completed and paid for the
-    /// purchase AND the server credited them. Callers should advance the
+    /// purchase AND the server credited them. Callers must advance the
     /// user past the paywall only on `true` — cancel, pending, and errors
-    /// must all leave them on the paywall.
-    @discardableResult
+    /// must all leave them on the paywall. The result is intentionally NOT
+    /// `@discardableResult`: a cancel returns `false` without setting
+    /// `purchaseError`, so any caller that drops this value and infers
+    /// success some other way will let cancellers through for free.
     func purchase(_ product: StoreKit.Product) async -> Bool {
         guard !isPurchasing else { return false }
         isPurchasing = true
