@@ -9,14 +9,13 @@ struct TRIMRApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
-        // RC-authoritative (.revenueCat) — daily-habit pivot 2026-05-18. The
-        // product is now subscription-primary (weekly/yearly); consumable
-        // look-packs are retired, so the old observer-mode rationale (protect a
-        // one-shot credit grant if the Supabase call failed) no longer applies.
-        // RevenueCat now finishes StoreKit transactions and owns the entitlement;
-        // the `revenuecat-webhook` edge fn mirrors it into
-        // `profiles.subscription_tier` for server-side gating. See
-        // [[project-ios-revenuecat]] (RC account verified wired 2026-05-18).
+        // Observer mode (.myApp): RevenueCat drives the paywall / purchase /
+        // restore UI but does NOT finish StoreKit transactions. The app-wide
+        // StoreKitManager listener finishes each one only after
+        // `validate-apple-iap` credits the profile, preserving the
+        // "unfinished transaction replays on next launch" guarantee. RC's own
+        // finishing (.revenueCat mode) would silently drop a paid purchase if
+        // the backend credit call failed.
         #if DEBUG
         Purchases.logLevel = .debug
         #else
@@ -24,7 +23,7 @@ struct TRIMRApp: App {
         #endif
         Purchases.configure(
             with: Configuration.Builder(withAPIKey: RevenueCatConfig.apiKey)
-                .with(purchasesAreCompletedBy: .revenueCat, storeKitVersion: .storeKit2)
+                .with(purchasesAreCompletedBy: .myApp, storeKitVersion: .storeKit2)
                 .build()
         )
     }
@@ -92,9 +91,6 @@ final class AppState: ObservableObject {
         case haircolor
         case result
         case pricing
-        case dailyScan
-        case routine
-        case progress
         case settings
         case photoGuidelines
         case language
@@ -302,141 +298,6 @@ final class AppState: ObservableObject {
 
     func isSaved(name: String) -> Bool {
         savedCuts.contains { $0.name == name }
-    }
-
-    // MARK: - Daily-habit pivot networking
-
-    /// POSTs a base64 selfie to the `daily-hair-scan` edge function and decodes
-    /// the score. Same auth/error pattern as `saveCut`. The function is
-    /// subscription-gated server-side (returns 402 `subscription_required` for
-    /// non-Pro) — callers should gate on the RC entitlement before calling and
-    /// treat a 402 as "show paywall".
-    func runDailyScan(imageBase64: String) async throws -> DailyScanResponse {
-        try await postFunction("daily-hair-scan", body: DailyScanRequest(image: imageBase64))
-    }
-
-    /// (Re)generates the user's adaptive routine. `answers` is optional — the
-    /// edge fn falls back to `profiles.onboarding_answers`.
-    @discardableResult
-    func generateHairRoutine(answers: [String: String]? = nil) async throws -> HairRoutineResponse {
-        struct Body: Encodable { let answers: [String: String]? }
-        return try await postFunction("generate-hair-routine", body: Body(answers: answers))
-    }
-
-    /// Shared edge-function POST: bearer JWT + apikey, JSON in/out, surfaces the
-    /// server `error` string (and `code`) on non-2xx so callers can branch on
-    /// `subscription_required`.
-    private func postFunction<B: Encodable, R: Decodable>(_ name: String, body: B) async throws -> R {
-        guard let token = auth.session?.accessToken else {
-            throw NSError(domain: name, code: 401,
-                          userInfo: [NSLocalizedDescriptionKey: "Please sign in again."])
-        }
-        var req = URLRequest(url: TrimrConfig.supabaseURL
-            .appendingPathComponent("functions/v1/\(name)"))
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        req.setValue(TrimrConfig.supabaseAnonKey, forHTTPHeaderField: "apikey")
-        req.httpBody = try JSONEncoder().encode(body)
-        let (data, response) = try await URLSession.shared.data(for: req)
-        let http = (response as? HTTPURLResponse)?.statusCode ?? 0
-        guard (200..<300).contains(http) else {
-            var msg = "Request failed (HTTP \(http))"
-            var code = "\(http)"
-            if let parsed = try? JSONDecoder().decode([String: String].self, from: data) {
-                if let e = parsed["error"], !e.isEmpty { msg = e }
-                if let c = parsed["code"], !c.isEmpty { code = c }
-            }
-            throw NSError(domain: name, code: http,
-                          userInfo: [NSLocalizedDescriptionKey: msg, "code": code])
-        }
-        return try JSONDecoder().decode(R.self, from: data)
-    }
-
-    /// UTC `yyyy-MM-dd` — must match the edge fn / table default
-    /// `(now() at time zone 'utc')::date` so check-in upserts hit one row/day.
-    static var todayUTC: String {
-        let f = DateFormatter()
-        f.calendar = Calendar(identifier: .iso8601)
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.timeZone = TimeZone(identifier: "UTC")
-        f.dateFormat = "yyyy-MM-dd"
-        return f.string(from: Date())
-    }
-
-    func fetchActiveRoutine() async -> HairRoutineRow? {
-        guard let uid = auth.userId else { return nil }
-        do {
-            let rows: [HairRoutineRow] = try await Supa.client
-                .from("hair_routines")
-                .select()
-                .eq("user_id", value: uid.uuidString)
-                .eq("active", value: true)
-                .limit(1)
-                .execute().value
-            return rows.first
-        } catch {
-            print("[fetchActiveRoutine] \(error.localizedDescription)")
-            return nil
-        }
-    }
-
-    func fetchRecentScans(limit: Int = 30) async -> [HairScanRow] {
-        guard let uid = auth.userId else { return [] }
-        do {
-            return try await Supa.client
-                .from("hair_scans")
-                .select("id,overall_score,headline,scan_date,created_at")
-                .eq("user_id", value: uid.uuidString)
-                .order("created_at", ascending: false)
-                .limit(limit)
-                .execute().value
-        } catch {
-            print("[fetchRecentScans] \(error.localizedDescription)")
-            return []
-        }
-    }
-
-    func fetchRecentCheckins(limit: Int = 60) async -> [DailyCheckinRow] {
-        guard let uid = auth.userId else { return [] }
-        do {
-            return try await Supa.client
-                .from("daily_checkins")
-                .select("checkin_date,completed_step_ids,scanned")
-                .eq("user_id", value: uid.uuidString)
-                .order("checkin_date", ascending: false)
-                .limit(limit)
-                .execute().value
-        } catch {
-            print("[fetchRecentCheckins] \(error.localizedDescription)")
-            return []
-        }
-    }
-
-    /// Upserts today's check-in with the new completed-step set. Only sends the
-    /// columns it owns so it never clobbers `scanned` (set by daily-hair-scan).
-    func saveCompletedSteps(_ ids: [String]) async {
-        guard let uid = auth.userId else { return }
-        struct Payload: Encodable {
-            let user_id: String
-            let checkin_date: String
-            let completed_step_ids: [String]
-            let updated_at: String
-        }
-        let payload = Payload(
-            user_id: uid.uuidString,
-            checkin_date: Self.todayUTC,
-            completed_step_ids: ids,
-            updated_at: ISO8601DateFormatter().string(from: Date())
-        )
-        do {
-            try await Supa.client
-                .from("daily_checkins")
-                .upsert(payload, onConflict: "user_id,checkin_date")
-                .execute()
-        } catch {
-            print("[saveCompletedSteps] \(error.localizedDescription)")
-        }
     }
 
     // MARK: - Sign out flows

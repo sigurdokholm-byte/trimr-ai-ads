@@ -102,67 +102,7 @@
       }
     ]
   },
-  "subscriptionGroups" : [
-    {
-      "id" : "21500001",
-      "localizations" : [],
-      "name" : "TRIMR Pro",
-      "subscriptions" : [
-        {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "6.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "2A000001",
-          "introductoryOffer" : {
-            "internalID" : "2A000101",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
-          },
-          "localizations" : [
-            {
-              "description" : "Daily AI hair scan, personalized routine & progress tracking.",
-              "displayName" : "TRIMR Pro — Weekly",
-              "locale" : "en_US"
-            }
-          ],
-          "productID" : "ai.trimr.pro.weekly",
-          "recurringSubscriptionPeriod" : "P1W",
-          "referenceName" : "TRIMR Pro Weekly",
-          "subscriptionGroupID" : "21500001",
-          "type" : "RecurringSubscription",
-          "winbackOffers" : []
-        },
-        {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "39.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "2A000002",
-          "introductoryOffer" : {
-            "internalID" : "2A000102",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
-          },
-          "localizations" : [
-            {
-              "description" : "Daily AI hair scan, personalized routine & progress tracking. Best value.",
-              "displayName" : "TRIMR Pro — Yearly",
-              "locale" : "en_US"
-            }
-          ],
-          "productID" : "ai.trimr.pro.yearly",
-          "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "TRIMR Pro Yearly",
-          "subscriptionGroupID" : "21500001",
-          "type" : "RecurringSubscription",
-          "winbackOffers" : []
-        }
-      ]
-    }
-  ],
+  "subscriptionGroups" : [],
   "version" : {
     "major" : 4,
     "minor" : 0

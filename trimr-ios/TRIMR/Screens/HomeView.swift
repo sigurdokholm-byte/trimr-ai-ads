@@ -14,16 +14,6 @@ struct HomeView: View {
                     .padding(.top, 14)
                     .padding(.bottom, 18)
 
-                DailyDashboardCard()
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 24)
-
-                SectionTitle(
-                    title: "More tools"
-                )
-                .padding(.horizontal, 20)
-                .padding(.bottom, 14)
-
                 actionGrid
                     .padding(.horizontal, 16)
                     .padding(.bottom, 28)

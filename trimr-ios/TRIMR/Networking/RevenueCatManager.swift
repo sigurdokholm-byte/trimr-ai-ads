@@ -42,17 +42,6 @@ enum RevenueCatConfig {
 final class RevenueCatManager: ObservableObject {
     @Published private(set) var customerInfo: CustomerInfo?
 
-    // MARK: RC-authoritative subscription state (daily-habit pivot, 2026-05-18)
-    // Additive: nothing in the funnel calls these yet (P1b cutover wires them
-    // once the RC account/keys are fixed — see [[project-ios-revenuecat]]).
-
-    enum PaywallState { case loading, ready, unavailable }
-
-    @Published private(set) var offering: Offering?
-    @Published private(set) var paywallState: PaywallState = .loading
-    @Published private(set) var isPurchasing = false
-    @Published var purchaseError: String?
-
     private var streamTask: Task<Void, Never>?
 
     init() {
@@ -88,89 +77,5 @@ final class RevenueCatManager: ObservableObject {
             print("[RevenueCat] restore failed: \(error.localizedDescription)")
             return false
         }
-    }
-
-    // MARK: - RC-authoritative subscription flow
-
-    /// Loads the current Offering. `paywallState` drives a graceful fallback so
-    /// a broken RC account (Error 23) can't dead-end onboarding — the UI shows
-    /// a non-blocking "store unavailable" instead of RC's raw error.
-    func loadOffering() async {
-        paywallState = .loading
-        do {
-            let offerings = try await Purchases.shared.offerings()
-            if let current = offerings.current, !current.availablePackages.isEmpty {
-                offering = current
-                paywallState = .ready
-            } else {
-                offering = nil
-                paywallState = .unavailable
-            }
-        } catch {
-            print("[RevenueCat] offerings failed: \(error.localizedDescription)")
-            offering = nil
-            paywallState = .unavailable
-        }
-    }
-
-    /// First package whose StoreKit product id matches, regardless of how the
-    /// RC dashboard names its package identifiers.
-    func package(productId: String) -> Package? {
-        offering?.availablePackages.first { $0.storeProduct.productIdentifier == productId }
-    }
-
-    var weeklyPackage: Package? {
-        offering?.weekly ?? package(productId: "ai.trimr.pro.weekly")
-    }
-
-    var yearlyPackage: Package? {
-        offering?.annual ?? package(productId: "ai.trimr.pro.yearly")
-    }
-
-    /// Purchases a package via RevenueCat (RC-authoritative). Returns true only
-    /// when the Pro entitlement is active afterwards. The `revenuecat-webhook`
-    /// edge fn mirrors the entitlement into `profiles.subscription_tier` so
-    /// server-side gating stays valid; callers should also refresh the profile.
-    @discardableResult
-    func purchase(_ package: Package) async -> Bool {
-        guard !isPurchasing else { return false }
-        isPurchasing = true
-        defer { isPurchasing = false }
-        purchaseError = nil
-        do {
-            let result = try await Purchases.shared.purchase(package: package)
-            if result.userCancelled { return false }
-            customerInfo = result.customerInfo
-            return result.customerInfo.entitlements[RevenueCatConfig.proEntitlementID]?.isActive == true
-        } catch {
-            purchaseError = error.localizedDescription
-            return false
-        }
-    }
-
-    // MARK: - Plan-based surface (keeps RevenueCat types out of the view layer)
-
-    enum Plan { case weekly, yearly }
-
-    private func packageFor(_ plan: Plan) -> Package? {
-        switch plan {
-        case .weekly: return weeklyPackage
-        case .yearly: return yearlyPackage
-        }
-    }
-
-    /// Localized App Store price string for the plan, e.g. "$6.99" — nil until
-    /// the offering has loaded.
-    func priceString(for plan: Plan) -> String? {
-        packageFor(plan)?.storeProduct.localizedPriceString
-    }
-
-    @discardableResult
-    func purchase(plan: Plan) async -> Bool {
-        guard let pkg = packageFor(plan) else {
-            purchaseError = "That plan isn't available right now. Please try again."
-            return false
-        }
-        return await purchase(pkg)
     }
 }
