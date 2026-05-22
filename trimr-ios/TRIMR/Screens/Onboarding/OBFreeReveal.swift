@@ -78,15 +78,17 @@ struct OBFreeReveal: View {
     }
 
     private var lockedCard: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 22)
-                .fill(Theme.gold.opacity(0.18))
-                .blur(radius: 22)
-                .padding(-8)
-
-            ZStack {
-                RoundedRectangle(cornerRadius: 22).fill(Theme.card2)
-
+        // Rigid 3:4 portrait frame — the aspect ratio of an iPhone selfie.
+        // The base shape drives the card's size; the blurred photo, shimmer
+        // sweep and lock badge all sit on top as `.overlay`s, and an overlay
+        // can never enlarge its parent. The card is therefore an identical
+        // shape on every device and for any photo (a `scaledToFill` image
+        // can no longer stretch it tall), so the "reveal my look" button
+        // below always lands in the same place.
+        RoundedRectangle(cornerRadius: 22)
+            .fill(Theme.card2)
+            .aspectRatio(3.0 / 4.0, contentMode: .fit)
+            .overlay {
                 Group {
                     if let img = userImage {
                         Image(uiImage: img)
@@ -105,9 +107,9 @@ struct OBFreeReveal: View {
                         )
                     }
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 22))
                 .overlay(Color.black.opacity(0.32))
-
+            }
+            .overlay {
                 GeometryReader { geo in
                     LinearGradient(
                         colors: [.clear, Theme.gold.opacity(0.22), .clear],
@@ -116,8 +118,10 @@ struct OBFreeReveal: View {
                     .frame(width: geo.size.width * 0.9)
                     .offset(x: geo.size.width * shimmerX)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 22))
-
+            }
+            // Clip the photo + shimmer to the rounded frame.
+            .clipShape(RoundedRectangle(cornerRadius: 22))
+            .overlay {
                 ZStack {
                     Circle().fill(Theme.gold.opacity(0.18))
                         .overlay(Circle().stroke(Theme.gold.opacity(0.65), lineWidth: 1.5))
@@ -132,8 +136,12 @@ struct OBFreeReveal: View {
                 RoundedRectangle(cornerRadius: 22)
                     .stroke(Theme.gold.opacity(0.45), lineWidth: 1.2)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 22))
-        }
-        .aspectRatio(0.78, contentMode: .fit)
+            .background(
+                // Soft gold glow — drawn behind, never affects layout size.
+                RoundedRectangle(cornerRadius: 22)
+                    .fill(Theme.gold.opacity(0.18))
+                    .blur(radius: 22)
+                    .padding(-8)
+            )
     }
 }
