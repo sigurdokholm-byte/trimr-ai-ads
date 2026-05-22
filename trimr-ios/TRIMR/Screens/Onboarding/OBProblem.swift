@@ -8,6 +8,12 @@ struct OBProblem: View {
     let onBack: () -> Void
     let progress: Double
 
+    @State private var line1Opacity: Double = 0
+    @State private var line2Opacity: Double = 0
+    @State private var line3Opacity: Double = 0
+    @State private var line4Opacity: Double = 0
+    @State private var ctaOpacity: Double = 0
+
     var body: some View {
         VStack(spacing: 0) {
             OBHeader(progress: progress, onBack: onBack)
@@ -25,6 +31,7 @@ struct OBProblem: View {
                 )
                 .font(TFont.display(30))
                 .tracking(-0.6)
+                .opacity(line1Opacity)
 
                 (
                     Text("for the ")
@@ -36,6 +43,7 @@ struct OBProblem: View {
                 )
                 .font(TFont.display(30))
                 .tracking(-0.6)
+                .opacity(line2Opacity)
 
                 (
                     Text("and they ")
@@ -47,6 +55,7 @@ struct OBProblem: View {
                 )
                 .font(TFont.display(30))
                 .tracking(-0.6)
+                .opacity(line3Opacity)
 
                 Spacer().frame(height: 12)
 
@@ -60,6 +69,7 @@ struct OBProblem: View {
                 )
                 .font(TFont.display(30))
                 .tracking(-0.6)
+                .opacity(line4Opacity)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 28)
@@ -78,7 +88,15 @@ struct OBProblem: View {
             .buttonStyle(.plain)
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
+            .opacity(ctaOpacity)
         }
         .background(Theme.bg.ignoresSafeArea())
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.45).delay(0.2))  { line1Opacity = 1 }
+            withAnimation(.easeOut(duration: 0.45).delay(0.75)) { line2Opacity = 1 }
+            withAnimation(.easeOut(duration: 0.45).delay(1.3))  { line3Opacity = 1 }
+            withAnimation(.easeOut(duration: 0.45).delay(1.85)) { line4Opacity = 1 }
+            withAnimation(.easeOut(duration: 0.45).delay(2.4))  { ctaOpacity = 1 }
+        }
     }
 }
