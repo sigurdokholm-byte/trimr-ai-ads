@@ -15,6 +15,7 @@ enum OnboardingStep: Int, CaseIterable {
     case bombshell
     case bridge
     case hairTypeQuiz
+    case hairLoss
     case reflection1
     case styleGoalQuiz
     case productCountQuiz
@@ -69,6 +70,13 @@ enum HairType: String, CaseIterable, Codable, Hashable {
     case straight, wavy, curly, coily
 }
 
+enum HairLoss: String, CaseIterable, Codable, Hashable {
+    case full           // "Full head of hair"
+    case receding       // "Slightly receding"
+    case thinning       // "Thinning on top"
+    case significant    // "Significant hair loss"
+}
+
 enum StyleGoal: String, CaseIterable, Codable, Hashable {
     case professional, attractive, trendy, lowMaintenance
 }
@@ -96,6 +104,7 @@ final class OnboardingState: ObservableObject {
     @Published var intent: Int? = nil                      // existing OBGoal selection
     @Published var faceShape: FaceShape? = nil             // nil = "Let Trimr detect it"
     @Published var hairType: HairType? = nil
+    @Published var hairLoss: HairLoss? = nil
     @Published var productCount: ProductCount? = nil
     @Published var shampooFrequency: ShampooFrequency? = nil
     @Published var styleGoals: Set<StyleGoal> = []

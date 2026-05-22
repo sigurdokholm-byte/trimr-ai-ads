@@ -51,6 +51,9 @@ struct OnboardingView: View {
             case .hairTypeQuiz:
                 OBHairTypeQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairType)
 
+            case .hairLoss:
+                OBHairLossQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairLoss)
+
             case .reflection1:
                 OBReflection1(hairType: state.hairType, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
@@ -160,6 +163,7 @@ struct OnboardingView: View {
         var prefs: [String: String] = [:]
         if let face = state.faceShape { prefs["faceShape"] = face.rawValue }
         if let hair = state.hairType { prefs["hairType"] = hair.rawValue }
+        if let loss = state.hairLoss { prefs["hairLoss"] = loss.rawValue }
         if let pc = state.productCount { prefs["productCount"] = pc.rawValue }
         if !state.styleGoals.isEmpty {
             prefs["styleGoals"] = state.styleGoals.map(\.rawValue).sorted().joined(separator: ",")

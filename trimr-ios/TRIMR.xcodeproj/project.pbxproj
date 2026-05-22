@@ -37,6 +37,7 @@
 		AA000000000000000000003A /* OBFullReveal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000039 /* OBFullReveal.swift */; };
 		AA000000000000000000003C /* OBGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003B /* OBGoal.swift */; };
 		AA000000000000000000003E /* OBHairTypeQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003D /* OBHairTypeQuiz.swift */; };
+		AA00000000000000000000B2 /* OBHairLossQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000000000000B3 /* OBHairLossQuiz.swift */; };
 		AA0000000000000000000040 /* OBHello.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000003F /* OBHello.swift */; };
 		AA0000000000000000000042 /* OBName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000041 /* OBName.swift */; };
 		AA0000000000000000000044 /* OBNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000043 /* OBNotifications.swift */; };
@@ -113,6 +114,7 @@
 		AA0000000000000000000039 /* OBFullReveal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBFullReveal.swift; sourceTree = "<group>"; };
 		AA000000000000000000003B /* OBGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBGoal.swift; sourceTree = "<group>"; };
 		AA000000000000000000003D /* OBHairTypeQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBHairTypeQuiz.swift; sourceTree = "<group>"; };
+		AA00000000000000000000B3 /* OBHairLossQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBHairLossQuiz.swift; sourceTree = "<group>"; };
 		AA000000000000000000003F /* OBHello.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBHello.swift; sourceTree = "<group>"; };
 		AA0000000000000000000041 /* OBName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBName.swift; sourceTree = "<group>"; };
 		AA0000000000000000000043 /* OBNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBNotifications.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				AA0000000000000000000039 /* OBFullReveal.swift */,
 				AA000000000000000000003B /* OBGoal.swift */,
 				AA000000000000000000003D /* OBHairTypeQuiz.swift */,
+				AA00000000000000000000B3 /* OBHairLossQuiz.swift */,
 				AA000000000000000000003F /* OBHello.swift */,
 				AA0000000000000000000041 /* OBName.swift */,
 				AA0000000000000000000043 /* OBNotifications.swift */,
@@ -423,6 +426,7 @@
 				AA000000000000000000003A /* OBFullReveal.swift in Sources */,
 				AA000000000000000000003C /* OBGoal.swift in Sources */,
 				AA000000000000000000003E /* OBHairTypeQuiz.swift in Sources */,
+				AA00000000000000000000B2 /* OBHairLossQuiz.swift in Sources */,
 				AA0000000000000000000040 /* OBHello.swift in Sources */,
 				AA0000000000000000000042 /* OBName.swift in Sources */,
 				AA0000000000000000000044 /* OBNotifications.swift in Sources */,
