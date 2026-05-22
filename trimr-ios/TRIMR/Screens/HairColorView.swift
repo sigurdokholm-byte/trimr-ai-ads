@@ -61,6 +61,18 @@ struct HairColorView: View {
                 }
             }
             .background(Theme.bg.ignoresSafeArea())
+
+            // Full-screen branded checklist loader while the colour renders,
+            // in place of the small in-sheet "Generating…" overlay.
+            if isGenerating {
+                AnalyzingChecklistView(statuses: [
+                    "Reading your photo…",
+                    "Isolating your hair…",
+                    "Mixing your shade…",
+                    "Blending color & tone…",
+                    "Rendering your new color",
+                ])
+            }
         }
         .alert("Couldn't apply colour", isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
             Button("OK", role: .cancel) { errorMessage = nil }
@@ -83,13 +95,11 @@ struct HairColorView: View {
                     thumbnailUIImage: nil,
                     headline: "Upload your photo to preview hair color",
                     subtitle: "We'll apply the color to your photo",
-                    isGenerating: isGenerating,
+                    isGenerating: false,
                     canAfford: profile.canColor,
                     generateCostLabel: "Generate · 1 Look",
                     onGenerate: { cropped in generate(image: cropped) },
-                    onClose: {
-                        if !isGenerating { showUploadSheet = false }
-                    },
+                    onClose: { showUploadSheet = false },
                     onTopUp: {
                         showUploadSheet = false
                         app.push(.pricing)
@@ -110,6 +120,9 @@ struct HairColorView: View {
             app.push(.pricing); return
         }
         let color = CatalogData.hairColors[idx].name
+        // Dismiss the upload sheet and show the full-screen checklist loader
+        // (driven by `isGenerating`) instead of the small in-sheet overlay.
+        showUploadSheet = false
         isGenerating = true
         Task {
             defer { isGenerating = false }

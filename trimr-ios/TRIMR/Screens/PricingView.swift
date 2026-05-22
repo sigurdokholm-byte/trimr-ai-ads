@@ -127,7 +127,9 @@ struct PricingView: View {
                 }
             }
             .padding(.horizontal, 24)
-            .padding(.bottom, 32)
+            // Clear the always-on-top TabBar (~86pt) that MainShell overlays
+            // on pushed screens — matches HomeView's 110pt clearance.
+            .padding(.bottom, 110)
         }
         .background(Theme.bg.ignoresSafeArea())
         .task {

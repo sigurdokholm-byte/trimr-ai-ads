@@ -153,35 +153,24 @@ struct LinkChip: View {
     }
 }
 
-// MARK: - Plan pill (shown in headers to surface plan/credit state)
+// MARK: - Plan pill (shown in headers to surface remaining Look credits)
 
 struct PlanPill: View {
-    let isPro: Bool
     let looksLeft: Int?
     var action: () -> Void = {}
 
     var body: some View {
         Button(action: { Haptics.light(); action() }) {
             HStack(spacing: 8) {
-                if isPro {
-                    Image(systemName: "crown.fill")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(Color(hex: 0x0A0804))
-                    Text("PRO")
-                        .font(TFont.mono(10, weight: .bold))
-                        .tracking(1.5)
-                        .foregroundStyle(Color(hex: 0x0A0804))
-                } else {
-                    Circle().fill(Theme.gold).frame(width: 6, height: 6)
-                    Text(looksLeft.map { "\($0) LEFT" } ?? "FREE")
-                        .font(TFont.mono(10, weight: .semibold))
-                        .tracking(1.5)
-                        .foregroundStyle(Theme.text)
-                }
+                Circle().fill(Theme.gold).frame(width: 6, height: 6)
+                Text(looksLeft.map { "\($0) LEFT" } ?? "FREE")
+                    .font(TFont.mono(10, weight: .semibold))
+                    .tracking(1.5)
+                    .foregroundStyle(Theme.text)
             }
             .padding(.horizontal, 12).padding(.vertical, 6)
-            .background(isPro ? AnyShapeStyle(Theme.goldGlow) : AnyShapeStyle(Theme.card))
-            .overlay(Capsule().stroke(isPro ? Color.clear : Theme.borderStrong))
+            .background(Theme.card)
+            .overlay(Capsule().stroke(Theme.borderStrong))
             .clipShape(Capsule())
         }
         .buttonStyle(.plain)
@@ -337,7 +326,10 @@ struct AnalyzingChecklistView: View {
     @State private var statusIndex: Int = 0
     @State private var pulse: CGFloat = 0.85
 
-    private let statuses = [
+    /// Checklist lines shown under the logo. Defaults to the face-analysis
+    /// copy; try-on and hair-color pass their own so the steps describe the
+    /// work actually happening on that screen.
+    var statuses: [String] = [
         "Detecting facial landmarks…",
         "Analyzing face shape…",
         "Matching to hairstyles…",

@@ -228,8 +228,7 @@ struct SettingsView: View {
     // MARK: Actions
 
     private func openAppStoreReview() {
-        // TODO: replace REPLACE_WITH_APPLE_APP_ID with the numeric App ID from App Store Connect
-        guard let url = URL(string: "itms-apps://itunes.apple.com/app/idREPLACE_WITH_APPLE_APP_ID?action=write-review") else { return }
+        guard let url = URL(string: "https://apps.apple.com/app/id6766304264?action=write-review") else { return }
         UIApplication.shared.open(url)
     }
 

@@ -14,6 +14,10 @@ struct HomeView: View {
                     .padding(.top, 14)
                     .padding(.bottom, 18)
 
+                heroCarousel
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 24)
+
                 actionGrid
                     .padding(.horizontal, 16)
                     .padding(.bottom, 28)
@@ -41,7 +45,7 @@ struct HomeView: View {
                 .font(TFont.display(24))
                 .tracking(3)
             Spacer()
-            PlanPill(isPro: profile.isPro, looksLeft: profile.isPro ? nil : profile.lookCredits) {
+            PlanPill(looksLeft: profile.lookCredits) {
                 app.push(.pricing)
             }
             Button {

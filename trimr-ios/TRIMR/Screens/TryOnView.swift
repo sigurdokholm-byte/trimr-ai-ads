@@ -12,7 +12,6 @@ struct TryOnView: View {
     @State private var showUploadSheet = false
     @State private var response: AnalyzeResponse?
     @State private var beforePhoto: UIImage?
-    @State private var isGenerating = false
     @State private var errorMessage: String = ""
 
     @EnvironmentObject var app: AppState
@@ -38,7 +37,13 @@ struct TryOnView: View {
         ZStack {
             switch phase {
             case .picker:    pickerPhase
-            case .analyzing: AnalyzingChecklistView()
+            case .analyzing: AnalyzingChecklistView(statuses: [
+                "Reading your photo…",
+                "Mapping your hairline…",
+                "Fitting the hairstyle…",
+                "Blending light & color…",
+                "Rendering your new look",
+            ])
             case .results:   resultsPhase
             case .error:     errorPhase
             }
@@ -73,13 +78,11 @@ struct TryOnView: View {
                     thumbnailUIImage: customSelected ? customReferenceImage : nil,
                     headline: "Upload your photo to preview hairstyle",
                     subtitle: "We'll apply the hairstyle to your photo",
-                    isGenerating: isGenerating,
+                    isGenerating: false,
                     canAfford: profile.canTryOn,
                     generateCostLabel: "Generate · 1 Look",
                     onGenerate: { cropped in generate(image: cropped) },
-                    onClose: {
-                        if !isGenerating { showUploadSheet = false }
-                    },
+                    onClose: { showUploadSheet = false },
                     onTopUp: {
                         showUploadSheet = false
                         app.push(.pricing)
@@ -174,9 +177,12 @@ struct TryOnView: View {
             showUploadSheet = false
             app.push(.pricing); return
         }
-        isGenerating = true
+        // Dismiss the upload sheet and switch to the full-screen checklist
+        // loader (.analyzing) instead of the small in-sheet "Generating…"
+        // overlay.
+        showUploadSheet = false
+        withAnimation { phase = .analyzing }
         Task {
-            defer { isGenerating = false }
             let encodingTask = Task.detached(priority: .userInitiated) {
                 image.base64DataURL()
             }
