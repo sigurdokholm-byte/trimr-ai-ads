@@ -133,6 +133,27 @@ final class AppState: ObservableObject {
         }
     }
 
+    /// Pulls fresh profile + library data immediately after a sign-in completes.
+    ///
+    /// `RootView`'s `onChange(of: auth.isSignedIn)` can't cover this: onboarding
+    /// always opens an anonymous session first, so signing in is an anon → real
+    /// swap where `isSignedIn` stays `true` the whole time — the handler never
+    /// fires. Without an explicit pull here, freshly-merged look credits only
+    /// surfaced on the next 60s poll tick, so the home screen sat on 0 looks for
+    /// up to a minute after login. The anon → real credit merge is already
+    /// awaited inside `AuthManager.signInWith*`, so the profiles row is correct
+    /// server-side by the time we get here.
+    func refreshAfterSignIn() async {
+        // Safety net: retries the merge only if it didn't land inside the
+        // sign-in call (e.g. network drop). No-op once the snapshot is cleared.
+        await auth.attemptMerge()
+        await profile.load()
+        profile.startPolling()
+        // Saved cuts were last loaded for the anonymous session; force a reload
+        // so the real account's library shows up too.
+        await loadSavedCuts(force: true)
+    }
+
     // MARK: - Saved cuts (server-backed; in-memory cache)
 
     /// Loads saved cuts once per session unless `force == true`. Coalesces

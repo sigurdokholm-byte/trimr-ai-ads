@@ -7,6 +7,9 @@ struct OnboardingView: View {
     private func finish() {
         app.userName = state.name
         app.onboardingComplete = true
+        // Sign-in just completed — pull the real account's credits now instead
+        // of leaving the home screen on 0 looks until the next 60s poll tick.
+        Task { await app.refreshAfterSignIn() }
     }
 
     var body: some View {
