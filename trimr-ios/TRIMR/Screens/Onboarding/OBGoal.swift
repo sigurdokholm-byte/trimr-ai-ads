@@ -10,6 +10,7 @@ struct OBGoal: View {
         "Just curious to try new hairstyles",
         "I had a bad haircut and want to avoid it again",
         "I'm going to the salon soon and want to prepare",
+        "I'm losing hair and want a cut that works with it",
     ]
 
     var body: some View {

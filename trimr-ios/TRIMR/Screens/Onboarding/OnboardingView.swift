@@ -63,11 +63,11 @@ struct OnboardingView: View {
             case .shampooFrequency:
                 OBShampooQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.shampooFrequency)
 
-            case .intent:
-                OBGoal(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.intent)
-
             case .hairLoss:
                 OBHairLossQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairLoss)
+
+            case .intent:
+                OBGoal(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.intent)
 
             case .reflection2:
                 OBReflection2(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
