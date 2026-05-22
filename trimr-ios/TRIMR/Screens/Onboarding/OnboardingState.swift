@@ -15,12 +15,12 @@ enum OnboardingStep: Int, CaseIterable {
     case bombshell
     case bridge
     case hairTypeQuiz
-    case hairLoss
     case reflection1
     case styleGoalQuiz
     case productCountQuiz
     case shampooFrequency
     case intent
+    case hairLoss
     case reflection2
     case reviews
     case finalReflection

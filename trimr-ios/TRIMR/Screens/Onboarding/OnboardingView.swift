@@ -51,9 +51,6 @@ struct OnboardingView: View {
             case .hairTypeQuiz:
                 OBHairTypeQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairType)
 
-            case .hairLoss:
-                OBHairLossQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairLoss)
-
             case .reflection1:
                 OBReflection1(hairType: state.hairType, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
 
@@ -68,6 +65,9 @@ struct OnboardingView: View {
 
             case .intent:
                 OBGoal(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.intent)
+
+            case .hairLoss:
+                OBHairLossQuiz(onNext: state.goNext, onBack: state.goBack, progress: state.step.progress, value: $state.hairLoss)
 
             case .reflection2:
                 OBReflection2(state: state, onNext: state.goNext, onBack: state.goBack, progress: state.step.progress)
